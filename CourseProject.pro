@@ -13,8 +13,18 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    Request.cpp \
+    Controller.cpp \
+    Server.cpp \
+    Client.cpp \
+    Manager.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    Request.h \
+    Controller.h \
+    Server.h \
+    Client.h \
+    Manager.h
 
 FORMS    += mainwindow.ui
