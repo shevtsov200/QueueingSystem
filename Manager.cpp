@@ -42,19 +42,19 @@ void Manager::rejectRequest(Request & request)
 {
     request.setEndTime(currentTime_);
     rejectedRequests_.push_back(request);
-    std::cout << "reject request" << std::endl;
+    std::cout << "reject request created at " << request.getCreationTime() << std::endl;
 }
 
 void Manager::sendRequestToBuffer(Request & request)
 {
-    if (buffer_.isFree())
+    if (!buffer_.isFree())
     {
-        buffer_.addRequest(request);
+        Request oldestRequest = buffer_.removeOldestRequest();
+        rejectRequest(oldestRequest);
     }
-    else
-    {
-        rejectRequest(request);
-    }
+    buffer_.addRequest(request);
+    std::cout << "Put request created at " << request.getCreationTime()
+              << " to the buffer." << std::endl;
 }
 
 void Manager::sendRequestToServer(Request & request)
