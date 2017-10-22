@@ -1,11 +1,18 @@
-#ifndef DEVICE_H
-#define DEVICE_H
+#ifndef SERVER_H
+#define SERVER_H
 
+#include "Request.h"
 
-class Device
+class Server
 {
 public:
-    Device();
+    Server();
+    void serveRequest(double currentTime, const Request & request);
+    bool isFree() const;
+private:
+    Request request_;
+    double serviceFinishTime_;
+    bool isFree_;
 };
 
-#endif // DEVICE_H
+#endif // SERVER_H
