@@ -12,7 +12,7 @@ Manager::Manager()
 void Manager::start()
 {
     const double step = 0.5;
-    const double endTime = 20;
+    const double endTime = 10;
     const int bufferSize = 3;
     const int clientNumber = 2;
 
@@ -32,14 +32,17 @@ void Manager::start()
 
             if (currentTime_ < request.getCreationTime())
             {
-                if (currentTime_ > server_.getServiceFinishTime())
-                {
-                    currentTime_ = server_.getServiceFinishTime();
-                    Request servicedRequest = server_.retrieveServicedRequest();
-                    sendRequestToServiced(servicedRequest);
-                }
                 currentTime_ = request.getCreationTime();
             }
+
+            if (currentTime_ > server_.getServiceFinishTime())
+            {
+                currentTime_ = server_.getServiceFinishTime();
+                Request servicedRequest = server_.retrieveServicedRequest();
+                sendRequestToServiced(servicedRequest);
+            }
+            currentTime_ = request.getCreationTime();
+
             std::cout << "currentTime = " << currentTime_ << std::endl;
             sendRequestToBuffer(request);
         }

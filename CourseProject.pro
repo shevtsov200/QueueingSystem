@@ -18,13 +18,15 @@ SOURCES += main.cpp\
     Controller.cpp \
     Server.cpp \
     Client.cpp \
-    Manager.cpp
+    Manager.cpp \
+    Buffer.cpp
 
 HEADERS  += mainwindow.h \
     Request.h \
     Controller.h \
     Server.h \
     Client.h \
-    Manager.h
+    Manager.h \
+    Buffer.h
 
 FORMS    += mainwindow.ui
