@@ -18,7 +18,18 @@ void Server::serveRequest(double currentTime, const Request & request)
     isFree_ = false;
 }
 
+Request Server::retrieveServicedRequest()
+{
+    isFree_ = true;
+    return request_;
+}
+
 bool Server::isFree() const
 {
     return isFree_;
+}
+
+double Server::getServiceFinishTime() const
+{
+    return serviceFinishTime_;
 }

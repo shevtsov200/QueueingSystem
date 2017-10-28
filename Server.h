@@ -8,7 +8,9 @@ class Server
 public:
     Server();
     void serveRequest(double currentTime, const Request & request);
+    Request retrieveServicedRequest();
     bool isFree() const;
+    double getServiceFinishTime() const;
 private:
     Request request_;
     double serviceFinishTime_;

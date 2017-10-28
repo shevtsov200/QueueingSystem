@@ -13,7 +13,7 @@ public:
     Manager();
     void start();
 private:
-    Client client_;
+    std::vector<Client> clients_;
     Buffer buffer_;
     Server server_;
 
@@ -23,6 +23,7 @@ private:
     double currentTime_;
 
     void rejectRequest(Request & request);
+    void sendRequestToServiced(Request & request);
     void sendRequestToBuffer(Request & request);
     void sendRequestToServer(Request & request);
 };
