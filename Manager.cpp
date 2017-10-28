@@ -12,29 +12,38 @@ Manager::Manager()
 void Manager::start()
 {
     const double step = 0.5;
-    const double endTime = 5;
+    const double endTime = 20;
     const int bufferSize = 3;
 
     client_ = Client();
     buffer_ = Buffer(bufferSize);
     server_ = Server();
 
-    for(double currentTime = 0; currentTime < endTime; currentTime += step)
-    {
-        currentTime_ = currentTime;
-        std::cout << "------------------------------" << std::endl;
-        std::cout << "currentTime = " << currentTime << std::endl;
+    //for(double currentTime = 0; currentTime < endTime; currentTime += step)
 
-        Request request = client_.generateRequest(currentTime);
+    while(currentTime_ < endTime)
+    {
+        //currentTime_ = currentTime;
+        std::cout << "------------------------------" << std::endl;
+
+        Request request = client_.generateRequest(currentTime_);
         std::cout << "generate request at " << request.getCreationTime() << std::endl;
 
+        if (currentTime_ < request.getCreationTime())
+        {
+            currentTime_ = request.getCreationTime();
+        }
+        std::cout << "currentTime = " << currentTime_ << std::endl;
         sendRequestToBuffer(request);
 
-        request = buffer_.getRequest();
+        if (server_.isFree())
+        {
+            std::cout << "Server is free." << std::endl;
+            Request request = buffer_.getRequest();
+            sendRequestToServer(request);
+        }
 
-        sendRequestToServer(request);
-
-        std::cout << "------------------------------" << std::endl << std::endl;
+        std::cout << "------------------------------" << std::endl;
     }
 }
 
@@ -61,10 +70,8 @@ void Manager::sendRequestToServer(Request & request)
 {
     if (server_.isFree())
     {
+        std::cout << "send request created at "
+                  << request.getCreationTime() << " to server." << std::endl;
         server_.serveRequest(currentTime_,request);
-    }
-    else
-    {
-        rejectRequest(request);
     }
 }
