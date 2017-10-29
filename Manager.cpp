@@ -13,18 +13,23 @@ Manager::Manager()
 void Manager::start()
 {
     const double step = 0.5;
-    const double endTime = 15;
+    const double endTime = 2;
     const int bufferSize = 3;
     const int clientNumber = 2;
 
-    Client client = Client();
-    clients_.push_back(client);
+    for (int i = 0; i < 2; ++i)
+    {
+        Client client = Client(i);
+        clients_.push_back(client);
+    }
+
     buffer_ = Buffer(bufferSize);
     server_ = Server();
 
     for (std::vector<Client>::iterator it = clients_.begin(); it != clients_.end(); ++it)
     {
         it->generateRequest(currentTime_);
+        std::cout << "initial generation: " << it->request_ << " " << it->request_.getCreationTime() << std::endl;
     }
 
     while(currentTime_ < endTime)
