@@ -16,15 +16,21 @@ void Manager::start()
     const double endTime = 2;
     const int bufferSize = 3;
     const int clientNumber = 2;
+    const int serverNumber = 1;
 
-    for (int i = 0; i < 2; ++i)
+    for (int i = 0; i < clientNumber; ++i)
     {
         Client client = Client(i);
         clients_.push_back(client);
     }
 
     buffer_ = Buffer(bufferSize);
-    server_ = Server();
+
+    for (int i = 0; i < serverNumber; ++i)
+    {
+        Server server = Server();
+        servers_.push_back(server);
+    }
 
     for (std::vector<Client>::iterator it = clients_.begin(); it != clients_.end(); ++it)
     {
@@ -36,11 +42,8 @@ void Manager::start()
     {
         std::cout << "------------------------------" << std::endl;
 
-        std::vector<Client>::iterator clientIt = std::min_element(clients_.begin(), clients_.end(),
-                                                            [](const Client & left, const Client & right)
-        {
-            return (left.request_.getCreationTime() < right.request_.getCreationTime());
-        });
+        std::vector<Client>::iterator clientIt = getEarliestClient();
+        std::vector<Server>::iterator serverIt = getEarliestServer();
 
         Request request = clientIt->getRequest();
         std::cout << "get " << request << " created at " << request.getCreationTime() << std::endl;
@@ -50,10 +53,10 @@ void Manager::start()
             currentTime_ = request.getCreationTime();
         }
 
-        if ((currentTime_ > server_.getServiceFinishTime()) && !server_.isFree())
+        if ((currentTime_ > serverIt->getServiceFinishTime()) && !serverIt->isFree())
         {
-            currentTime_ = server_.getServiceFinishTime();
-            Request servicedRequest = server_.retrieveServicedRequest();
+            currentTime_ = serverIt->getServiceFinishTime();
+            Request servicedRequest = serverIt->retrieveServicedRequest();
             sendRequestToServiced(servicedRequest);
         }
         currentTime_ = request.getCreationTime();
@@ -62,12 +65,12 @@ void Manager::start()
 
         sendRequestToBuffer(request);
 
-        if (server_.isFree())
+        if (serverIt->isFree())
         {
-            std::cout << "Server is free." << std::endl;
             Request request = buffer_.getRequest();
-            sendRequestToServer(request);
-            std::cout << "Server will be free at " << server_.getServiceFinishTime() << std::endl;
+            std::cout << "send " << request << " to server." << std::endl;
+            serverIt->serveRequest(currentTime_,request);
+            std::cout << "Server will be free at " << serverIt->getServiceFinishTime() << std::endl;
         }
 
         std::cout << "------------------------------" << std::endl;
@@ -101,9 +104,27 @@ void Manager::sendRequestToBuffer(Request & request)
 
 void Manager::sendRequestToServer(Request & request)
 {
-    if (server_.isFree())
+    /*if (server_.isFree())
     {
         std::cout << "send " << request << " to server." << std::endl;
         server_.serveRequest(currentTime_,request);
-    }
+    }*/
+}
+
+std::vector<Client>::iterator Manager::getEarliestClient()
+{
+    return std::min_element(clients_.begin(), clients_.end(),
+                                                                [](const Client & left, const Client & right)
+            {
+                return (left.request_.getCreationTime() < right.request_.getCreationTime());
+    });
+}
+
+std::vector<Server>::iterator Manager::getEarliestServer()
+{
+    return std::min_element(servers_.begin(), servers_.end(),
+                                                                [](const Server & left, const Server & right)
+            {
+                return (left.getServiceFinishTime() < right.getServiceFinishTime());
+            });
 }

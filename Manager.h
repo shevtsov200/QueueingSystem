@@ -15,7 +15,8 @@ public:
 private:
     std::vector<Client> clients_;
     Buffer buffer_;
-    Server server_;
+    //Server server_;
+    std::vector<Server> servers_;
 
     std::vector<Request> servicedRequests_;
     std::vector<Request> rejectedRequests_;
@@ -26,6 +27,8 @@ private:
     void sendRequestToServiced(Request & request);
     void sendRequestToBuffer(Request & request);
     void sendRequestToServer(Request & request);
+    std::vector<Client>::iterator getEarliestClient();
+    std::vector<Server>::iterator getEarliestServer();
 };
 
 #endif // MANAGER_H
