@@ -7,7 +7,13 @@ class Client
 {
 public:
     Client();
-    Request generateRequest(double currentTime);
+    Client(int clientNumber);
+    void generateRequest(double currentTime);
+    Request getRequest() const;
+    Request request_;
+private:
+    int clientNumber_;
+    int testInc_;
 };
 
 #endif // CLIENT_H

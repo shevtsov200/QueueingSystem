@@ -1,4 +1,6 @@
 #include "Request.h"
+#include <iostream>
+
 
 Request::Request()
 {
@@ -6,9 +8,11 @@ Request::Request()
     endTime_ = 0;
 }
 
-Request::Request(double creationTime)
+Request::Request(double creationTime, int clientNumber, int requestNumber)
 {
     creationTime_ = creationTime;
+    clientNumber_ = clientNumber;
+    requestNumber_ = requestNumber;
     endTime_ = 0;
 }
 
@@ -22,7 +26,17 @@ double Request::getEndTime() const
     return endTime_;
 }
 
+int Request::getRequestNumber() const
+{
+    return requestNumber_;
+}
+
 void Request::setEndTime(double endTime)
 {
     endTime_ = endTime;
+}
+
+std::ostream& operator<<(std::ostream & stream, const Request & request)
+{
+    return stream << "request"<<"("<<request.clientNumber_<<","<<request.requestNumber_<<")";
 }
