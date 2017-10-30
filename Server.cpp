@@ -2,6 +2,7 @@
 #include "Request.h"
 #include <cstdlib>
 #include <cmath>
+#include <iostream>
 
 Server::Server()
 {
@@ -44,4 +45,9 @@ double Server::getServiceFinishTime() const
 int Server::getServerNumber() const
 {
     return serverNumber_;
+}
+
+std::ostream &operator<<(std::ostream &stream, const Server &server)
+{
+    return stream << "server" << server.getServerNumber();
 }

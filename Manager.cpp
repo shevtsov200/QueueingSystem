@@ -69,9 +69,9 @@ void Manager::start()
         if (nextServer_->isFree())
         {
             Request request = buffer_.getRequest();
-            std::cout << "send " << request << " to server" << nextServer_->getServerNumber() << std::endl;
+            std::cout << "send " << request << " to " << *nextServer_ << std::endl;
             nextServer_->serveRequest(currentTime_,request);
-            std::cout << "Server" << nextServer_->getServerNumber() << " will be free at " << nextServer_->getServiceFinishTime() << std::endl;
+            std::cout << *nextServer_ << " will be free at " << nextServer_->getServiceFinishTime() << std::endl;
         }
 
         std::cout << "------------------------------" << std::endl;
@@ -101,15 +101,6 @@ void Manager::sendRequestToBuffer(Request & request)
     }
     buffer_.addRequest(request);
     std::cout << "Put " << request << " to the buffer." << std::endl;
-}
-
-void Manager::sendRequestToServer(Request & request)
-{
-    /*if (server_.isFree())
-    {
-        std::cout << "send " << request << " to server." << std::endl;
-        server_.serveRequest(currentTime_,request);
-    }*/
 }
 
 std::vector<Client>::iterator Manager::getEarliestClient()

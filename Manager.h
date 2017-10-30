@@ -26,7 +26,6 @@ private:
     void rejectRequest(Request & request);
     void sendRequestToServiced(Request & request);
     void sendRequestToBuffer(Request & request);
-    void sendRequestToServer(Request & request);
     std::vector<Client>::iterator getEarliestClient();
     std::vector<Server>::iterator getEarliestServer();
     void moveNextServer();

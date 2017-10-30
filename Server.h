@@ -2,6 +2,7 @@
 #define SERVER_H
 
 #include "Request.h"
+#include <iosfwd>
 
 class Server
 {
@@ -13,6 +14,8 @@ public:
     bool isFree() const;
     double getServiceFinishTime() const;
     int getServerNumber() const;
+
+    friend std::ostream& operator<<(std::ostream & stream, const Server & server);
 private:
     Request request_;
     double serviceFinishTime_;
