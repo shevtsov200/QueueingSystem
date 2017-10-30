@@ -6,6 +6,13 @@
 Server::Server()
 {
     isFree_ = true;
+    serverNumber_ = 0;
+}
+
+Server::Server(int serverNumber)
+{
+    isFree_ = true;
+    serverNumber_ = serverNumber;
 }
 
 void Server::serveRequest(double currentTime, const Request & request)
@@ -32,4 +39,9 @@ bool Server::isFree() const
 double Server::getServiceFinishTime() const
 {
     return serviceFinishTime_;
+}
+
+int Server::getServerNumber() const
+{
+    return serverNumber_;
 }

@@ -28,9 +28,10 @@ void Manager::start()
 
     for (int i = 0; i < serverNumber; ++i)
     {
-        Server server = Server();
+        Server server = Server(i);
         servers_.push_back(server);
     }
+    nextServer_ = servers_.begin();
 
     for (std::vector<Client>::iterator it = clients_.begin(); it != clients_.end(); ++it)
     {
@@ -65,12 +66,12 @@ void Manager::start()
 
         sendRequestToBuffer(request);
 
-        if (serverIt->isFree())
+        if (nextServer_->isFree())
         {
             Request request = buffer_.getRequest();
-            std::cout << "send " << request << " to server." << std::endl;
-            serverIt->serveRequest(currentTime_,request);
-            std::cout << "Server will be free at " << serverIt->getServiceFinishTime() << std::endl;
+            std::cout << "send " << request << " to server" << nextServer_->getServerNumber() << std::endl;
+            nextServer_->serveRequest(currentTime_,request);
+            std::cout << "Server" << nextServer_->getServerNumber() << " will be free at " << nextServer_->getServiceFinishTime() << std::endl;
         }
 
         std::cout << "------------------------------" << std::endl;
@@ -126,5 +127,17 @@ std::vector<Server>::iterator Manager::getEarliestServer()
                                                                 [](const Server & left, const Server & right)
             {
                 return (left.getServiceFinishTime() < right.getServiceFinishTime());
-            });
+    });
+}
+
+void Manager::moveNextServer()
+{
+    if (nextServer_ != servers_.end())
+    {
+        nextServer_++;
+    }
+    else
+    {
+        nextServer_ = servers_.begin();
+    }
 }
