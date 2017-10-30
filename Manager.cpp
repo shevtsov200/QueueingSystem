@@ -13,10 +13,10 @@ Manager::Manager()
 void Manager::start()
 {
     const double step = 0.5;
-    const double endTime = 2;
+    const double endTime = 5;
     const int bufferSize = 3;
     const int clientNumber = 2;
-    const int serverNumber = 1;
+    const int serverNumber = 2;
 
     for (int i = 0; i < clientNumber; ++i)
     {
@@ -72,6 +72,11 @@ void Manager::start()
             std::cout << "send " << request << " to " << *nextServer_ << std::endl;
             nextServer_->serveRequest(currentTime_,request);
             std::cout << *nextServer_ << " will be free at " << nextServer_->getServiceFinishTime() << std::endl;
+            moveNextServer();
+        }
+        else
+        {
+            moveNextServer();
         }
 
         std::cout << "------------------------------" << std::endl;
@@ -120,14 +125,23 @@ std::vector<Server>::iterator Manager::getEarliestServer()
                 return (left.getServiceFinishTime() < right.getServiceFinishTime());
     });
 }
+/*
+void Manager::findFreeServer()
+{
+    std::vector<Server>::iterator oldIt = nextServer_;
+    moveNextServer();
+    while(nextServer_ != oldIt)
+    {
+        moveNextServer();
+        if(nextServer_ )
+    }
+
+}*/
 
 void Manager::moveNextServer()
 {
-    if (nextServer_ != servers_.end())
-    {
-        nextServer_++;
-    }
-    else
+    ++nextServer_;
+    if(nextServer_ == servers_.end())
     {
         nextServer_ = servers_.begin();
     }
