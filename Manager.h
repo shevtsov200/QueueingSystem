@@ -31,6 +31,7 @@ private:
     void sendRequestToServer();
 
     void moveNextServer();
+    std::vector<Server>::iterator moveRingIt(std::vector<Server>::iterator it);
 
     void printComponents() const;
 };

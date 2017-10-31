@@ -15,8 +15,8 @@ void Manager::start()
     const double step = 0.5;
     const double endTime = 2;
     const int bufferSize = 3;
-    const int clientNumber = 2;
-    const int serverNumber = 2;
+    const int clientNumber = 3;
+    const int serverNumber = 3;
 
     for (int i = 0; i < clientNumber; ++i)
     {
@@ -48,8 +48,6 @@ void Manager::start()
         std::vector<Server>::iterator serverIt = getEarliestServer();
 
         Request request = clientIt->getRequest();
-        //std::cout << "get " << request << " created at " << request.getCreationTime() << std::endl;
-        std::cout << *clientIt << " -> " << request << std::endl;
 
         if (currentTime_ < request.getCreationTime())
         {
@@ -59,12 +57,14 @@ void Manager::start()
         if ((currentTime_ > serverIt->getServiceFinishTime()) && !serverIt->isFree())
         {
             currentTime_ = serverIt->getServiceFinishTime();
-            std::cout << "currentTime: " << currentTime_ << std::endl;
             Request servicedRequest = serverIt->retrieveServicedRequest();
             sendRequestToServiced(servicedRequest);
         }
         currentTime_ = request.getCreationTime();
-        std::cout << "currentTime: " << currentTime_ << std::endl;
+
+
+        std::cout << *clientIt << " -> " << request << " time: " << currentTime_ << std::endl;
+
         clientIt->generateRequest(currentTime_);
 
         sendRequestToBuffer(request);
@@ -81,16 +81,14 @@ void Manager::rejectRequest(Request & request)
 {
     request.setEndTime(currentTime_);
     rejectedRequests_.push_back(request);
-    //std::cout << "reject " << request << std::endl;
-    std::cout << request << "-> rejected" << std::endl;
+    std::cout << request << "-> rejected" << " time: " << currentTime_ <<  std::endl;
 }
 
 void Manager::sendRequestToServiced(Request &request)
 {
     request.setEndTime(currentTime_);
     servicedRequests_.push_back(request);
-    //std::cout <<"Send " << request << " to serviced" << std::endl;
-    std::cout << request << " -> serviced" << std::endl;
+    std::cout << request << " -> serviced" << " time: " << currentTime_ <<  std::endl;
 }
 
 void Manager::sendRequestToBuffer(Request & request)
@@ -101,23 +99,26 @@ void Manager::sendRequestToBuffer(Request & request)
         rejectRequest(oldestRequest);
     }
     buffer_.addRequest(request);
-    //std::cout << "Put " << request << " to the buffer." << std::endl;
-    std::cout << request << " -> buffer" << std::endl;
+    std::cout << request << " -> buffer" << " time: " << currentTime_ <<  std::endl;
 }
 
 void Manager::sendRequestToServer()
 {
-    if (nextServer_->isFree())
+    std::vector<Server>::iterator initialIt = nextServer_;
+    std::vector<Server>::iterator it = nextServer_;
+    do
     {
-        Request request = buffer_.getRequest();
-        std::cout << request << " -> " << *nextServer_ << std::endl;
-        nextServer_->serveRequest(currentTime_,request);
-        moveNextServer();
+        if (it->isFree())
+        {
+            nextServer_ = it;
+            Request request = buffer_.getRequest();
+            std::cout << request << " -> " << *nextServer_ << " time: " << currentTime_ <<  std::endl;
+            nextServer_->serveRequest(currentTime_,request);
+            break;
+        }
+        it = moveRingIt(it);
     }
-    else
-    {
-        moveNextServer();
-    }
+    while(it != initialIt);
 }
 
 std::vector<Client>::iterator Manager::getEarliestClient()
@@ -137,18 +138,6 @@ std::vector<Server>::iterator Manager::getEarliestServer()
                 return (left.getServiceFinishTime() < right.getServiceFinishTime());
     });
 }
-/*
-void Manager::findFreeServer()
-{
-    std::vector<Server>::iterator oldIt = nextServer_;
-    moveNextServer();
-    while(nextServer_ != oldIt)
-    {
-        moveNextServer();
-        if(nextServer_ )
-    }
-
-}*/
 
 void Manager::moveNextServer()
 {
@@ -157,6 +146,16 @@ void Manager::moveNextServer()
     {
         nextServer_ = servers_.begin();
     }
+}
+
+std::vector<Server>::iterator Manager::moveRingIt(std::vector<Server>::iterator it)
+{
+    ++it;
+    if(it == servers_.end())
+    {
+        it = servers_.begin();
+    }
+    return it;
 }
 
 void Manager::printComponents() const

@@ -9,10 +9,9 @@ Client::Client()
     testInc_ = 0;
 }
 
-Client::Client(int clientNumber)
+Client::Client(int clientNumber) : Client()
 {
     clientNumber_ = clientNumber;
-    testInc_ = 0;
 }
 
 void Client::generateRequest(double currentTime)

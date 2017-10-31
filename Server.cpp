@@ -12,11 +12,10 @@ Server::Server()
     serviceFinishTime_ = 0;
 }
 
-Server::Server(int serverNumber)
+Server::Server(int serverNumber) : Server()
 {
     isFree_ = true;
     serverNumber_ = serverNumber;
-    serviceFinishTime_ = 0;
 }
 
 void Server::serveRequest(double currentTime, const Request & request)

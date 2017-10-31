@@ -10,12 +10,11 @@ Request::Request()
     requestNumber_ = 0;
 }
 
-Request::Request(double creationTime, int clientNumber, int requestNumber)
+Request::Request(double creationTime, int clientNumber, int requestNumber) : Request()
 {
     creationTime_ = creationTime;
     clientNumber_ = clientNumber;
     requestNumber_ = requestNumber;
-    endTime_ = 0;
 }
 
 double Request::getCreationTime() const
