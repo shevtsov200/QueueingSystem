@@ -5,13 +5,13 @@
 
 Client::Client()
 {
-    clientNumber_ = 0;
     testInc_ = 0;
+    std::cout << "client()" << std::endl;
 }
 
-Client::Client(int clientNumber) : Client()
+Client::Client(int indexNumber) : Client()
 {
-    clientNumber_ = clientNumber;
+    indexNumber_ = indexNumber;
 }
 
 void Client::generateRequest(double currentTime)
@@ -19,21 +19,26 @@ void Client::generateRequest(double currentTime)
     const double a = 0;
     const double b = 1;
     double creationTime = currentTime + (((double)std::rand() / (double)RAND_MAX) * (b - a) + a);
-    Request request = Request(creationTime, clientNumber_, testInc_++);
+    Request request = Request(creationTime, indexNumber_, testInc_++);
     request_ = request;
 }
 
-Request Client::getRequest() const
+double Client::getRequestCreationTime() const
 {
-    return request_;
+    return request_.getCreationTime();
 }
 
-int Client::getClientNumber() const
+/*Request Client::getRequest() const
+{
+    return request_;
+}*/
+
+/*int Client::getClientNumber() const
 {
     return clientNumber_;
-}
+}*/
 
 std::ostream &operator<<(std::ostream &stream, const Client &client)
 {
-    return stream << "client" << client.getClientNumber();
+    return stream << "client" << client.getIndex();
 }

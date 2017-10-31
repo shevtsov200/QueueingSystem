@@ -36,7 +36,6 @@ void Manager::start()
     for (std::vector<Client>::iterator it = clients_.begin(); it != clients_.end(); ++it)
     {
         it->generateRequest(currentTime_);
-        std::cout << "initial generation: " << it->request_ << " " << it->request_.getCreationTime() << std::endl;
     }
 
     while(currentTime_ < endTime)
@@ -47,7 +46,7 @@ void Manager::start()
         std::vector<Client>::iterator clientIt = getEarliestClient();
         std::vector<Server>::iterator serverIt = getEarliestServer();
 
-        Request request = clientIt->getRequest();
+        Request request = clientIt->retrieveRequest();
 
         if (currentTime_ < request.getCreationTime())
         {
@@ -126,7 +125,7 @@ std::vector<Client>::iterator Manager::getEarliestClient()
     return std::min_element(clients_.begin(), clients_.end(),
                                                                 [](const Client & left, const Client & right)
             {
-                return (left.request_.getCreationTime() < right.request_.getCreationTime());
+                return (left.getRequestCreationTime() < right.getRequestCreationTime());
     });
 }
 

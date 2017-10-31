@@ -2,20 +2,19 @@
 #define CLIENT_H
 
 #include "Request.h"
+#include "Component.h"
 #include <iosfwd>
 
-class Client
+class Client : public Component
 {
 public:
     Client();
-    Client(int clientNumber);
+    Client(int indexNumber);
     void generateRequest(double currentTime);
-    Request getRequest() const;
-    int getClientNumber() const;
+    double getRequestCreationTime() const;
+
     friend std::ostream &operator<<(std::ostream &stream, const Client &client);
-    Request request_;
 private:
-    int clientNumber_;
     int testInc_;
 };
 
