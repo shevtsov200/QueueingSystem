@@ -6,7 +6,6 @@
 Client::Client()
 {
     testInc_ = 0;
-    std::cout << "client()" << std::endl;
 }
 
 Client::Client(int indexNumber) : Client()
@@ -27,16 +26,6 @@ double Client::getRequestCreationTime() const
 {
     return request_.getCreationTime();
 }
-
-/*Request Client::getRequest() const
-{
-    return request_;
-}*/
-
-/*int Client::getClientNumber() const
-{
-    return clientNumber_;
-}*/
 
 std::ostream &operator<<(std::ostream &stream, const Client &client)
 {

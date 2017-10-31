@@ -56,7 +56,7 @@ void Manager::start()
         if ((currentTime_ > serverIt->getServiceFinishTime()) && !serverIt->isFree())
         {
             currentTime_ = serverIt->getServiceFinishTime();
-            Request servicedRequest = serverIt->retrieveServicedRequest();
+            Request servicedRequest = serverIt->retrieveRequest();
             sendRequestToServiced(servicedRequest);
         }
         currentTime_ = request.getCreationTime();

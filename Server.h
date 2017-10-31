@@ -2,26 +2,21 @@
 #define SERVER_H
 
 #include "Request.h"
+#include "Component.h"
 #include <iosfwd>
 
-class Server
+class Server : public Component
 {
 public:
     Server();
-    Server(int serverNumber);
+    Server(int indexNumber);
     void serveRequest(double currentTime, const Request & request);
-    Request retrieveServicedRequest();
-    bool isFree() const;
     double getServiceFinishTime() const;
-    int getServerNumber() const;
     void print() const;
 
     friend std::ostream& operator<<(std::ostream & stream, const Server & server);
 private:
-    Request request_;
     double serviceFinishTime_;
-    bool isFree_;
-    int serverNumber_;
 };
 
 #endif // SERVER_H

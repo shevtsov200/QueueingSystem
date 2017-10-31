@@ -7,15 +7,12 @@
 
 Server::Server()
 {
-    isFree_ = true;
-    serverNumber_ = 0;
     serviceFinishTime_ = 0;
 }
 
-Server::Server(int serverNumber) : Server()
+Server::Server(int indexNumber) : Server()
 {
-    isFree_ = true;
-    serverNumber_ = serverNumber;
+    indexNumber_ = indexNumber;
 }
 
 void Server::serveRequest(double currentTime, const Request & request)
@@ -28,25 +25,9 @@ void Server::serveRequest(double currentTime, const Request & request)
     isFree_ = false;
 }
 
-Request Server::retrieveServicedRequest()
-{
-    isFree_ = true;
-    return request_;
-}
-
-bool Server::isFree() const
-{
-    return isFree_;
-}
-
 double Server::getServiceFinishTime() const
 {
     return serviceFinishTime_;
-}
-
-int Server::getServerNumber() const
-{
-    return serverNumber_;
 }
 
 void Server::print() const
@@ -65,5 +46,5 @@ void Server::print() const
 
 std::ostream &operator<<(std::ostream &stream, const Server &server)
 {
-    return stream << "server" << server.getServerNumber();
+    return stream << "server" << server.getIndex();
 }
