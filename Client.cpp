@@ -1,7 +1,7 @@
-#include <cstdlib>
 #include "Client.h"
-
 #include "Request.h"
+#include <cstdlib>
+#include <iostream>
 
 Client::Client()
 {
@@ -27,4 +27,14 @@ void Client::generateRequest(double currentTime)
 Request Client::getRequest() const
 {
     return request_;
+}
+
+int Client::getClientNumber() const
+{
+    return clientNumber_;
+}
+
+std::ostream &operator<<(std::ostream &stream, const Client &client)
+{
+    return stream << "client" << client.getClientNumber();
 }

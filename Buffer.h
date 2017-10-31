@@ -13,6 +13,7 @@ public:
     bool isFree() const;
     Request getRequest();
     Request removeOldestRequest();
+    void print() const;
 private:
     int bufferSize_;
     std::vector<Request> requests_;

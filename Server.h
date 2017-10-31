@@ -14,6 +14,7 @@ public:
     bool isFree() const;
     double getServiceFinishTime() const;
     int getServerNumber() const;
+    void print() const;
 
     friend std::ostream& operator<<(std::ostream & stream, const Server & server);
 private:

@@ -1,6 +1,8 @@
 #include "Buffer.h"
 #include "Request.h"
 #include <algorithm>
+#include <iostream>
+#include <string>
 
 Buffer::Buffer()
 {
@@ -39,4 +41,19 @@ Request Buffer::removeOldestRequest()
     Request request = *it;
     requests_.erase(it);
     return request;
+}
+
+void Buffer::print() const
+{
+    std::cout << "buffer: ";
+    for(std::size_t i = 0; i < requests_.size(); ++i)
+    {
+        std::cout << "|" << requests_[i] << "|";
+    }
+
+    for(std::size_t i = 0; i < (bufferSize_ - requests_.size()); ++i)
+    {
+        std::cout << "|" << std::string(12,'*') << "|";
+    }
+    std::cout << std::endl;
 }

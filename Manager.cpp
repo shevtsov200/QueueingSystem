@@ -13,7 +13,7 @@ Manager::Manager()
 void Manager::start()
 {
     const double step = 0.5;
-    const double endTime = 5;
+    const double endTime = 2;
     const int bufferSize = 3;
     const int clientNumber = 2;
     const int serverNumber = 2;
@@ -41,13 +41,15 @@ void Manager::start()
 
     while(currentTime_ < endTime)
     {
-        std::cout << "------------------------------" << std::endl;
+        std::cout << "---------------------------------------------" << std::endl;
+
 
         std::vector<Client>::iterator clientIt = getEarliestClient();
         std::vector<Server>::iterator serverIt = getEarliestServer();
 
         Request request = clientIt->getRequest();
-        std::cout << "get " << request << " created at " << request.getCreationTime() << std::endl;
+        //std::cout << "get " << request << " created at " << request.getCreationTime() << std::endl;
+        std::cout << *clientIt << " -> " << request << std::endl;
 
         if (currentTime_ < request.getCreationTime())
         {
@@ -57,29 +59,21 @@ void Manager::start()
         if ((currentTime_ > serverIt->getServiceFinishTime()) && !serverIt->isFree())
         {
             currentTime_ = serverIt->getServiceFinishTime();
+            std::cout << "currentTime: " << currentTime_ << std::endl;
             Request servicedRequest = serverIt->retrieveServicedRequest();
             sendRequestToServiced(servicedRequest);
         }
         currentTime_ = request.getCreationTime();
-
+        std::cout << "currentTime: " << currentTime_ << std::endl;
         clientIt->generateRequest(currentTime_);
 
         sendRequestToBuffer(request);
+        sendRequestToServer();
 
-        if (nextServer_->isFree())
-        {
-            Request request = buffer_.getRequest();
-            std::cout << "send " << request << " to " << *nextServer_ << std::endl;
-            nextServer_->serveRequest(currentTime_,request);
-            std::cout << *nextServer_ << " will be free at " << nextServer_->getServiceFinishTime() << std::endl;
-            moveNextServer();
-        }
-        else
-        {
-            moveNextServer();
-        }
+        std::cout << std::endl;
+        printComponents();
 
-        std::cout << "------------------------------" << std::endl;
+        std::cout << "---------------------------------------------" << std::endl;
     }
 }
 
@@ -87,14 +81,16 @@ void Manager::rejectRequest(Request & request)
 {
     request.setEndTime(currentTime_);
     rejectedRequests_.push_back(request);
-    std::cout << "reject " << request << std::endl;
+    //std::cout << "reject " << request << std::endl;
+    std::cout << request << "-> rejected" << std::endl;
 }
 
 void Manager::sendRequestToServiced(Request &request)
 {
     request.setEndTime(currentTime_);
     servicedRequests_.push_back(request);
-    std::cout <<"Send " << request << " to serviced" << std::endl;
+    //std::cout <<"Send " << request << " to serviced" << std::endl;
+    std::cout << request << " -> serviced" << std::endl;
 }
 
 void Manager::sendRequestToBuffer(Request & request)
@@ -105,7 +101,23 @@ void Manager::sendRequestToBuffer(Request & request)
         rejectRequest(oldestRequest);
     }
     buffer_.addRequest(request);
-    std::cout << "Put " << request << " to the buffer." << std::endl;
+    //std::cout << "Put " << request << " to the buffer." << std::endl;
+    std::cout << request << " -> buffer" << std::endl;
+}
+
+void Manager::sendRequestToServer()
+{
+    if (nextServer_->isFree())
+    {
+        Request request = buffer_.getRequest();
+        std::cout << request << " -> " << *nextServer_ << std::endl;
+        nextServer_->serveRequest(currentTime_,request);
+        moveNextServer();
+    }
+    else
+    {
+        moveNextServer();
+    }
 }
 
 std::vector<Client>::iterator Manager::getEarliestClient()
@@ -145,4 +157,14 @@ void Manager::moveNextServer()
     {
         nextServer_ = servers_.begin();
     }
+}
+
+void Manager::printComponents() const
+{
+    buffer_.print();
+    std::for_each(servers_.begin(),servers_.end(),
+                  [](const Server & server)
+    {
+        server.print();
+    });
 }

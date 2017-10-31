@@ -2,6 +2,7 @@
 #define CLIENT_H
 
 #include "Request.h"
+#include <iosfwd>
 
 class Client
 {
@@ -10,6 +11,8 @@ public:
     Client(int clientNumber);
     void generateRequest(double currentTime);
     Request getRequest() const;
+    int getClientNumber() const;
+    friend std::ostream &operator<<(std::ostream &stream, const Client &client);
     Request request_;
 private:
     int clientNumber_;
