@@ -19,6 +19,11 @@ bool Buffer::isFree() const
     return (requests_.size() < bufferSize_);
 }
 
+bool Buffer::isEmpty() const
+{
+    return (requests_.size() == 0);
+}
+
 void Buffer::addRequest(const Request & request)
 {
     requests_.push_back(request);

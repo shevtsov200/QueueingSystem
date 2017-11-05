@@ -11,6 +11,7 @@ public:
     Buffer(int buffersize);
     void addRequest(const Request & request);
     bool isFree() const;
+    bool isEmpty() const;
     Request getRequest();
     Request removeOldestRequest();
     void print() const;

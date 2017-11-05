@@ -20,20 +20,21 @@ private:
 
     std::vector<Request> servicedRequests_;
     std::vector<Request> rejectedRequests_;
+    int numberOfGeneratedRequests_;
 
     double currentTime_;
 
     std::vector<Client>::iterator getEarliestClient();
     std::vector<Server>::iterator getEarliestServer();
     void rejectRequest(Request & request);
-    void sendRequestToServiced(Request & request);
+    void sendRequestToServiced(std::vector<Server>::iterator serverIt);
     void sendRequestToBuffer(Request & request);
     void sendRequestToServer();
 
-    void moveNextServer();
     std::vector<Server>::iterator moveRingIt(std::vector<Server>::iterator it);
 
     void printComponents() const;
+    bool requestsLeftInSystem() const;
 };
 
 #endif // MANAGER_H

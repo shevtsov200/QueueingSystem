@@ -20,6 +20,7 @@ void Client::generateRequest(double currentTime)
     double creationTime = currentTime + (((double)std::rand() / (double)RAND_MAX) * (b - a) + a);
     Request request = Request(creationTime, indexNumber_, testInc_++);
     request_ = request;
+    isFree_ = false;
 }
 
 double Client::getRequestCreationTime() const

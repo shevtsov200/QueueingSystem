@@ -575,7 +575,8 @@ debug\Request.obj: Request.cpp Request.h
 debug\Controller.obj: Controller.cpp Controller.h
 
 debug\Server.obj: Server.cpp Server.h \
-		Request.h
+		Request.h \
+		Component.h
 
 debug\Client.obj: Client.cpp Client.h \
 		Request.h \

@@ -575,7 +575,8 @@ release\Request.obj: Request.cpp Request.h
 release\Controller.obj: Controller.cpp Controller.h
 
 release\Server.obj: Server.cpp Server.h \
-		Request.h
+		Request.h \
+		Component.h
 
 release\Client.obj: Client.cpp Client.h \
 		Request.h \
