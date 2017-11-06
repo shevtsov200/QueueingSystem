@@ -18,7 +18,7 @@ Manager::Manager()
 
 void Manager::start()
 {
-    const int requestsNumber = 2;
+    const int requestsNumber = 200;
     const int bufferSize = 3;
     const int clientNumber = 2;
     const int serverNumber = 2;
@@ -58,14 +58,13 @@ void Manager::start()
 
         allRequestsNumber.push_back(clientRequestsNumber);
 
-        double rejectProbability = rejectedRequestsNumber / clientRequestsNumber;
+        double rejectProbability = double(rejectedRequestsNumber) / double(clientRequestsNumber);
         rejectProbabilities.push_back(rejectProbability);
 
         std::vector<double> bufferStayTimes;
         std::transform(clientAllRequests.cbegin(), clientAllRequests.cend(), std::back_inserter(bufferStayTimes),
                        [](const Request & request)
         {
-            std::cout << "!!!!!!!!!!!!!!!!!!!!" << request << " " << request.getServiceStartTime() << " " <<  request.getCreationTime() << std::endl;
             if(request.getServiceStartTime() != 0)
             {
                 return (request.getServiceStartTime() - request.getCreationTime());
