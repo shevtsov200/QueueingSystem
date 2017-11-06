@@ -7,6 +7,7 @@
 
 Server::Server()
 {
+    serviceStartTime_ = 0;
     serviceFinishTime_ = 0;
 }
 
@@ -20,9 +21,15 @@ void Server::serveRequest(double currentTime, const Request & request)
     const int lambda = 1;
     double serviceDuration = (log(std::rand() + 1) - log(RAND_MAX)) / (-lambda);
     request_ = request;
-    serviceFinishTime_ = currentTime + serviceDuration;
+    serviceStartTime_ = currentTime;
+    serviceFinishTime_ = serviceStartTime_ + serviceDuration;
 
     isFree_ = false;
+}
+
+double Server::getServiceStartTime() const
+{
+    return serviceStartTime_;
 }
 
 double Server::getServiceFinishTime() const

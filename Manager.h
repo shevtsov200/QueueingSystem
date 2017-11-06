@@ -6,12 +6,14 @@
 #include "Server.h"
 #include "Request.h"
 #include <vector>
+#include <functional>
 
 class Manager
 {
 public:
     Manager();
     void start();
+    void runSimulation(int clientNumber, int bufferSize, int serverNumber, int requestsNumber);
 private:
     std::vector<Client> clients_;
     Buffer buffer_;
@@ -35,6 +37,8 @@ private:
 
     void printComponents() const;
     bool requestsLeftInSystem() const;
+    double calculateVariance(const std::vector<double> & values) const;
+    double calculateMean(const std::vector<double> & values) const;
 };
 
 #endif // MANAGER_H

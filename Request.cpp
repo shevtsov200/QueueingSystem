@@ -5,6 +5,7 @@
 Request::Request()
 {
     creationTime_ = 0;
+    serviceStartTime_ = 0;
     endTime_ = 0;
     clientNumber_ = 0;
     requestNumber_ = 0;
@@ -22,6 +23,11 @@ double Request::getCreationTime() const
     return creationTime_;
 }
 
+double Request::getServiceStartTime() const
+{
+    return serviceStartTime_;
+}
+
 double Request::getEndTime() const
 {
     return endTime_;
@@ -30,6 +36,16 @@ double Request::getEndTime() const
 int Request::getRequestNumber() const
 {
     return requestNumber_;
+}
+
+int Request::getClientNumber() const
+{
+    return clientNumber_;
+}
+
+void Request::setServiceStartTime(double serviceStartTime)
+{
+    serviceStartTime_ = serviceStartTime;
 }
 
 void Request::setEndTime(double endTime)

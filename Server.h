@@ -11,11 +11,13 @@ public:
     Server();
     Server(int indexNumber);
     void serveRequest(double currentTime, const Request & request);
+    double getServiceStartTime() const;
     double getServiceFinishTime() const;
     void print() const;
 
     friend std::ostream& operator<<(std::ostream & stream, const Server & server);
 private:
+    double serviceStartTime_;
     double serviceFinishTime_;
 };
 
