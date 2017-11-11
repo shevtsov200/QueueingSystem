@@ -18,9 +18,9 @@ Manager::Manager()
 
 void Manager::start()
 {
-    const int requestsNumber = 200;
+    const int requestsNumber = 100;
     const int bufferSize = 3;
-    const int clientNumber = 2;
+    const int clientNumber = 4;
     const int serverNumber = 2;
 
     runSimulation(clientNumber, bufferSize, serverNumber, requestsNumber);
@@ -84,7 +84,14 @@ void Manager::start()
         std::transform(clientAllRequests.cbegin(), clientAllRequests.cend(), std::back_inserter(serviceStayTimes),
                        [](const Request & request)
         {
-            return (request.getEndTime() - request.getServiceStartTime());
+            if (request.getServiceStartTime() != 0)
+            {
+                return (request.getEndTime() - request.getServiceStartTime());
+            }
+            else
+            {
+                return 0.0;
+            }
         });
         double serviceMean = calculateMean(serviceStayTimes);
         double serviceVariance = calculateVariance(serviceStayTimes);
