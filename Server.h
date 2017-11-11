@@ -13,12 +13,15 @@ public:
     void serveRequest(double currentTime, const Request & request);
     double getServiceStartTime() const;
     double getServiceFinishTime() const;
+    double getAllServiceTime() const;
     void print() const;
 
     friend std::ostream& operator<<(std::ostream & stream, const Server & server);
 private:
     double serviceStartTime_;
     double serviceFinishTime_;
+
+    double allServiceTime_;
 };
 
 #endif // SERVER_H

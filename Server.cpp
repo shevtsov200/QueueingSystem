@@ -9,6 +9,7 @@ Server::Server()
 {
     serviceStartTime_ = 0;
     serviceFinishTime_ = 0;
+    allServiceTime_ = 0;
 }
 
 Server::Server(int indexNumber) : Server()
@@ -23,6 +24,7 @@ void Server::serveRequest(double currentTime, const Request & request)
     request_ = request;
     serviceStartTime_ = currentTime;
     serviceFinishTime_ = serviceStartTime_ + serviceDuration;
+    allServiceTime_ += serviceDuration;
 
     isFree_ = false;
 }
@@ -35,6 +37,11 @@ double Server::getServiceStartTime() const
 double Server::getServiceFinishTime() const
 {
     return serviceFinishTime_;
+}
+
+double Server::getAllServiceTime() const
+{
+    return allServiceTime_;
 }
 
 void Server::print() const

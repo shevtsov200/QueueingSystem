@@ -5,6 +5,7 @@ Component::Component()
 {
     indexNumber_ = 0;
     isFree_ = true;
+    name_ = "component";
 }
 
 Component::Component(int indexNumber) : Component()
