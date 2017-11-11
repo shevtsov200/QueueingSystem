@@ -6,7 +6,6 @@
 
 int main(int argc, char *argv[])
 {
-    std::cout << "Hello world" << std::endl;
     Manager manager = Manager();
     manager.start();
 
