@@ -38,8 +38,8 @@ private:
 
     void printComponents() const;
     bool requestsLeftInSystem() const;
-    double calculateVariance(const std::vector<double> & values) const;
-    double calculateMean(const std::vector<double> & values) const;
+   // double calculateVariance(const std::vector<double> & values) const;
+   // double calculateMean(const std::vector<double> & values) const;
 };
 
 #endif // MANAGER_H

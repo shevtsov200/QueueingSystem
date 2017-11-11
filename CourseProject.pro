@@ -20,7 +20,8 @@ SOURCES += main.cpp\
     Client.cpp \
     Manager.cpp \
     Buffer.cpp \
-    Component.cpp
+    Component.cpp \
+    Statistics.cpp
 
 HEADERS  += mainwindow.h \
     Request.h \
@@ -29,6 +30,7 @@ HEADERS  += mainwindow.h \
     Client.h \
     Manager.h \
     Buffer.h \
-    Component.h
+    Component.h \
+    Statistics.h
 
 FORMS    += mainwindow.ui

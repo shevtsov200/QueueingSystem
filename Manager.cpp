@@ -2,13 +2,11 @@
 #include "Request.h"
 #include "Buffer.h"
 #include "Server.h"
+#include "Statistics.h"
 
 #include <iostream>
 #include <algorithm>
-#include <numeric>
-#include <iterator>
 #include <functional>
-#include <iomanip>
 
 Manager::Manager()
 {
@@ -22,122 +20,16 @@ void Manager::start()
     const int requestsNumber = 10;
     const int bufferSize = 3;
     const int clientNumber = 2;
-    const int serverNumber = 3;
+    const int serverNumber = 2;
 
     runSimulation(clientNumber, bufferSize, serverNumber, requestsNumber);
 
-    std::vector<int> allRequestsNumber;
-    std::vector<double> rejectProbabilities,
-            systemStayMeans, bufferStayMeans, serviceStayMeans,
-            bufferVariances, serviceVariances;
-    std::vector<Request> allRequests;
-    allRequests.insert(allRequests.begin(),rejectedRequests_.begin(),rejectedRequests_.end());
-    allRequests.insert(allRequests.begin(),servicedRequests_.begin(),servicedRequests_.end());
+    Statistics statistics = Statistics(clients_, rejectedRequests_,servicedRequests_, servers_, executionTime_);
+    statistics.calculateStatistics();
 
-    for(std::size_t i = 0; i < clientNumber; ++i)
-    {
-        std::vector<Request> clientAllRequests;
-        std::copy_if(allRequests.cbegin(), allRequests.cend(), std::back_inserter(clientAllRequests),
-                     [=](const Request & request)
-        {
-            return (request.getClientNumber() == i);
-        });
-
-        int rejectedRequestsNumber = std::count_if(rejectedRequests_.cbegin(),rejectedRequests_.cend(),
-                                                   [=](const Request & request)
-        {
-            return (request.getClientNumber() == i);
-        });
-        int servicedRequestsNumber = std::count_if(servicedRequests_.cbegin(),servicedRequests_.cend(),
-                                                   [=](const Request & request)
-        {
-            return (request.getClientNumber() == i);
-        });
-
-
-        int clientRequestsNumber = clientAllRequests.size();
-
-        allRequestsNumber.push_back(clientRequestsNumber);
-
-        double rejectProbability = double(rejectedRequestsNumber) / double(clientRequestsNumber);
-        rejectProbabilities.push_back(rejectProbability);
-
-        std::vector<double> bufferStayTimes;
-        std::transform(clientAllRequests.cbegin(), clientAllRequests.cend(), std::back_inserter(bufferStayTimes),
-                       [](const Request & request)
-        {
-            if(request.getServiceStartTime() != 0)
-            {
-                return (request.getServiceStartTime() - request.getCreationTime());
-            }
-            else
-            {
-                return (request.getEndTime() - request.getCreationTime());
-            }
-
-        });
-        double bufferMean = calculateMean(bufferStayTimes);
-        bufferStayMeans.push_back(bufferMean);
-        double bufferVariance = calculateVariance(bufferStayTimes);
-        bufferVariances.push_back(bufferVariance);
-
-        std::vector<double> serviceStayTimes;
-        std::transform(clientAllRequests.cbegin(), clientAllRequests.cend(), std::back_inserter(serviceStayTimes),
-                       [](const Request & request)
-        {
-            if (request.getServiceStartTime() != 0)
-            {
-                return (request.getEndTime() - request.getServiceStartTime());
-            }
-            else
-            {
-                return 0.0;
-            }
-        });
-        double serviceMean = calculateMean(serviceStayTimes);
-        double serviceVariance = calculateVariance(serviceStayTimes);
-        serviceStayMeans.push_back(serviceMean);
-        serviceVariances.push_back(serviceVariance);
-
-        double systemStayMean = bufferMean + serviceMean;
-        systemStayMeans.push_back(systemStayMean);
-    }
-
-    int spacingNumber = 13;
-    std::cout << '|' << std::setw(spacingNumber) << "client"
-              << '|' << std::setw(spacingNumber) << "requestNumber"
-              << '|' << std::setw(spacingNumber) << "p_reject"
-              << '|' << std::setw(spacingNumber) << "T_sys"
-              << '|' << std::setw(spacingNumber) << "T_buf"
-              << '|' << std::setw(spacingNumber) << "T_serv"
-              << '|' << std::setw(spacingNumber) << "V_buf"
-              << '|' << std::setw(spacingNumber) << "V_serv"
-              << '|' << std::endl;
-    for(std::size_t i = 0; i < clients_.size(); ++i)
-    {
-        std::cout << '|' << std::setw(spacingNumber) << clients_[i].getIndex()
-                  << '|' << std::setw(spacingNumber) << allRequestsNumber[i]
-                  << '|' << std::setw(spacingNumber) << rejectProbabilities[i]
-                  << '|' << std::setw(spacingNumber) << systemStayMeans[i]
-                  << '|' << std::setw(spacingNumber) << bufferStayMeans[i]
-                  << '|' << std::setw(spacingNumber) << serviceStayMeans[i]
-                  << '|' << std::setw(spacingNumber) << bufferVariances[i]
-                  << '|' << std::setw(spacingNumber) << serviceVariances[i]
-                  << '|' << std::endl;
-    }
-
+    statistics.printClientTable();
     std::cout << std::endl;
-    spacingNumber = 18;
-    std::cout << '|' << std::setw(spacingNumber) << "server"
-              << '|' << std::setw(spacingNumber) << "utilization factor"
-              << '|' << std::endl;
-    for(std::vector<Server>::const_iterator it = servers_.cbegin(); it != servers_.cend(); ++it)
-    {
-        double utilizationFactor = it->getAllServiceTime()/executionTime_;
-        std::cout << '|' << std::setw(spacingNumber) << it->getIndex()
-                  << '|' << std::setw(spacingNumber) << utilizationFactor
-                  << '|' << std::endl;
-    }
+    statistics.printServerTable();
 }
 
 void Manager::runSimulation(int clientNumber, int bufferSize, int serverNumber, int requestsNumber)
@@ -334,7 +226,7 @@ bool Manager::requestsLeftInSystem() const
     return (!serversEmpty || !buffer_.isEmpty());
 }
 
-double Manager::calculateVariance(const std::vector<double> & values) const
+/*double Manager::calculateVariance(const std::vector<double> & values) const
 {
     double mean = calculateMean(values);
     double squareSum = std::inner_product(values.cbegin(), values.cend(),
@@ -348,4 +240,4 @@ double Manager::calculateMean(const std::vector<double> & values) const
     double sum = std::accumulate(values.cbegin(),values.cend(),0.0);
     double mean = sum / values.size();
     return mean;
-}
+}*/
