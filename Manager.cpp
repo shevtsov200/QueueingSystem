@@ -13,15 +13,16 @@
 Manager::Manager()
 {
     currentTime_ = 0;
+    executionTime_ = 0;
     numberOfGeneratedRequests_ = 0;
 }
 
 void Manager::start()
 {
-    const int requestsNumber = 3;
+    const int requestsNumber = 10;
     const int bufferSize = 3;
     const int clientNumber = 2;
-    const int serverNumber = 2;
+    const int serverNumber = 3;
 
     runSimulation(clientNumber, bufferSize, serverNumber, requestsNumber);
 
@@ -102,7 +103,7 @@ void Manager::start()
         systemStayMeans.push_back(systemStayMean);
     }
 
-    const int spacingNumber = 13;
+    int spacingNumber = 13;
     std::cout << '|' << std::setw(spacingNumber) << "client"
               << '|' << std::setw(spacingNumber) << "requestNumber"
               << '|' << std::setw(spacingNumber) << "p_reject"
@@ -125,9 +126,17 @@ void Manager::start()
                   << '|' << std::endl;
     }
 
+    std::cout << std::endl;
+    spacingNumber = 18;
+    std::cout << '|' << std::setw(spacingNumber) << "server"
+              << '|' << std::setw(spacingNumber) << "utilization factor"
+              << '|' << std::endl;
     for(std::vector<Server>::const_iterator it = servers_.cbegin(); it != servers_.cend(); ++it)
     {
-        std::cout << *it << " " << it->getAllServiceTime() << std::endl;
+        double utilizationFactor = it->getAllServiceTime()/executionTime_;
+        std::cout << '|' << std::setw(spacingNumber) << it->getIndex()
+                  << '|' << std::setw(spacingNumber) << utilizationFactor
+                  << '|' << std::endl;
     }
 }
 
@@ -219,6 +228,11 @@ void Manager::sendRequestToServiced(std::vector<Server>::iterator serverIt)
     servicedRequest.setEndTime(serverIt->getServiceFinishTime());
     servicedRequests_.push_back(servicedRequest);
     std::cout << servicedRequest << "-> serviced" << " time: " << servicedRequest.getEndTime() <<  std::endl;
+
+    if(!requestsLeftInSystem())
+    {
+        executionTime_ = servicedRequest.getEndTime();
+    }
 }
 
 void Manager::sendRequestToBuffer(Request & request)

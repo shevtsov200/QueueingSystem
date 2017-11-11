@@ -25,6 +25,7 @@ private:
     int numberOfGeneratedRequests_;
 
     double currentTime_;
+    double executionTime_;
 
     std::vector<Client>::iterator getEarliestClient();
     std::vector<Server>::iterator getEarliestServer();
