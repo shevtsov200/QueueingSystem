@@ -16,6 +16,16 @@ public:
     void calculateStatistics();
     void printClientTable() const;
     void printServerTable() const;
+
+    const std::vector<int> & getClientsIndexes() const;
+    const std::vector<int> & getClientRequestCounts() const;
+    const std::vector<double> & getRejectProbabilities() const;
+    const std::vector<double> & getSystemStayMeans() const;
+    const std::vector<double> & getBufferStayMeans() const;
+    const std::vector<double> & getServiceStayMeans() const;
+    const std::vector<double> & getBufferVariances() const;
+    const std::vector<double> & getServiceVariances() const;
+    int getAllRequestCount(int index) const;
 private:
     std::vector<Client> clients_;
     std::vector<Server> servers_;

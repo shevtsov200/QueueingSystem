@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "Manager.h"
+#include "TableWindow.h"
 
 #include <QTableWidget>
 #include <QTableWidgetItem>
@@ -8,11 +9,19 @@
 #include <iostream>
 #include <QTextStream>
 
+void MainWindow::openNewWindows()
+{
+
+}
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    //connect(ui->startButton, SIGNAL(clicked()), this, SLOT(openNewWindows()));
+
     ui->requestsSpinBox->setMinimum(1);
     ui->requestsSpinBox->setMaximum(std::numeric_limits<int>::max());
 
@@ -54,7 +63,7 @@ void MainWindow::on_actionStart_triggered()
 
 }
 
-void MainWindow::on_pushButton_clicked()
+void MainWindow::on_startButton_clicked()
 {
     int requestsCount = ui->requestsSpinBox->text().toInt();
     int bufferSize = ui->bufferSpinBox->text().toInt();
@@ -71,5 +80,34 @@ void MainWindow::on_pushButton_clicked()
     double lambda = russian.toDouble(lambdaString);
 
     Manager manager = Manager();
-    manager.start(requestsCount, bufferSize, clientCount, serverCount, a, b, lambda);
+    Statistics statistics = manager.start(requestsCount, bufferSize, clientCount, serverCount, a, b, lambda);
+
+    std::vector<int> clientRequestsCounts = statistics.getClientRequestCounts();
+    std::vector<double> rejectProbabilities = statistics.getRejectProbabilities();
+    std::vector<double> systemStayMeans = statistics.getSystemStayMeans();
+    std::vector<double> bufferStayMeans = statistics.getBufferStayMeans();
+    std::vector<double> serviceStayMeans = statistics.getServiceStayMeans();
+    std::vector<double> bufferVariances = statistics.getBufferVariances();
+    std::vector<double> serviceVariances = statistics.getServiceVariances();
+
+    TableWindow *tableWindow = new TableWindow();
+    tableWindow->setRowCount(clientCount);
+
+    for(std::size_t i = 0; i < clientCount; ++i)
+    {
+        tableWindow->setItem(i,0,i);
+        tableWindow->setItem(i,1,clientRequestsCounts[i]);
+        tableWindow->setItem(i,2,rejectProbabilities[i]);
+        tableWindow->setItem(i,3,systemStayMeans[i]);
+        tableWindow->setItem(i,4,bufferStayMeans[i]);
+        tableWindow->setItem(i,5,serviceStayMeans[i]);
+        tableWindow->setItem(i,6,bufferVariances[i]);
+        tableWindow->setItem(i,7,serviceVariances[i]);
+    }
+
+    setCentralWidget(tableWindow);
+    //tableWidget->setSize
+    //tableWidget->resizeColumnsToContents();
+    //tableWidget->resize(tableWidget->sizeHint());
+    //resize(tableWidget->size());
 }

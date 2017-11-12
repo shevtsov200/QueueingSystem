@@ -5,6 +5,8 @@
 #include "Buffer.h"
 #include "Server.h"
 #include "Request.h"
+#include "Statistics.h"
+
 #include <vector>
 #include <functional>
 
@@ -12,7 +14,7 @@ class Manager
 {
 public:
     Manager();
-    void start(int requestsNumber, int bufferSize, int clientCount, int serverCount, double a, double b, double lambda);
+    Statistics start(int requestsNumber, int bufferSize, int clientCount, int serverCount, double a, double b, double lambda);
     void runSimulation(int requestsNumber, int bufferSize, int clientCount, int serverCount, double a, double b, double lambda);
 private:
     std::vector<Client> clients_;

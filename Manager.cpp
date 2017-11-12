@@ -15,13 +15,8 @@ Manager::Manager()
     numberOfGeneratedRequests_ = 0;
 }
 
-void Manager::start(int requestsNumber, int bufferSize, int clientCount, int serverCount, double a, double b, double lambda)
+Statistics Manager::start(int requestsNumber, int bufferSize, int clientCount, int serverCount, double a, double b, double lambda)
 {
-    //const int requestsNumber = 10;
-    //const int bufferSize = 3;
-    //const int clientNumber = 2;
-    //const int serverNumber = 2;
-
     runSimulation(requestsNumber, bufferSize, clientCount, serverCount, a, b, lambda);
 
     Statistics statistics = Statistics(clients_, rejectedRequests_,servicedRequests_, servers_, executionTime_);
@@ -30,6 +25,8 @@ void Manager::start(int requestsNumber, int bufferSize, int clientCount, int ser
     statistics.printClientTable();
     std::cout << std::endl;
     statistics.printServerTable();
+
+    return statistics;
 }
 
 void Manager::runSimulation(int requestsNumber, int bufferSize, int clientCount, int serverCount, double a, double b, double lambda)

@@ -21,7 +21,6 @@ void Client::generateRequest(double currentTime)
 {
 
     double creationTime = currentTime + (((double)std::rand() / (double)RAND_MAX) * (b_ - a_) + a_);
-    std::cout << "b-a " << b_ << " - " << a_ << " creation time = " << creationTime << std::endl;
     Request request = Request(creationTime, indexNumber_, testInc_++);
     request_ = request;
     isFree_ = false;

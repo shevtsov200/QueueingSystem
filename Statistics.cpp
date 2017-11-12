@@ -174,3 +174,43 @@ void Statistics::printServerTable() const
                   << '|' << std::endl;
     }
 }
+
+const std::vector<int> &Statistics::getClientsIndexes() const
+{
+    return clientsNumbers_;
+}
+
+const std::vector<int> &Statistics::getClientRequestCounts() const
+{
+return allRequestsCounts_;
+}
+
+const std::vector<double> &Statistics::getRejectProbabilities() const
+{
+    return rejectProbabilities_;
+}
+
+const std::vector<double> &Statistics::getSystemStayMeans() const
+{
+    return systemStayMeans_;
+}
+
+const std::vector<double> &Statistics::getBufferStayMeans() const
+{
+    return bufferStayMeans_;
+}
+
+const std::vector<double> &Statistics::getServiceStayMeans() const
+{
+    return serviceStayMeans_;
+}
+
+const std::vector<double> &Statistics::getBufferVariances() const
+{
+    return bufferVariances_;
+}
+
+const std::vector<double> &Statistics::getServiceVariances() const
+{
+    return serviceVariances_;
+}

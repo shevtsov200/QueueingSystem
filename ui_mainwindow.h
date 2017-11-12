@@ -50,7 +50,7 @@ public:
     QLabel *label_5;
     QLabel *label_6;
     QLabel *label_7;
-    QPushButton *pushButton;
+    QPushButton *startButton;
     QMenuBar *menuBar;
     QMenu *menuOptions;
     QToolBar *mainToolBar;
@@ -147,10 +147,10 @@ public:
 
         verticalLayout->addLayout(formLayout);
 
-        pushButton = new QPushButton(widget);
-        pushButton->setObjectName(QStringLiteral("pushButton"));
+        startButton = new QPushButton(widget);
+        startButton->setObjectName(QStringLiteral("startButton"));
 
-        verticalLayout->addWidget(pushButton);
+        verticalLayout->addWidget(startButton);
 
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
@@ -183,7 +183,7 @@ public:
         label_5->setText(QApplication::translate("MainWindow", "a", Q_NULLPTR));
         label_6->setText(QApplication::translate("MainWindow", "b", Q_NULLPTR));
         label_7->setText(QApplication::translate("MainWindow", "lambda", Q_NULLPTR));
-        pushButton->setText(QApplication::translate("MainWindow", "Start", Q_NULLPTR));
+        startButton->setText(QApplication::translate("MainWindow", "Start", Q_NULLPTR));
         menuOptions->setTitle(QApplication::translate("MainWindow", "parameters", Q_NULLPTR));
     } // retranslateUi
 
