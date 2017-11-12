@@ -15,14 +15,14 @@ Manager::Manager()
     numberOfGeneratedRequests_ = 0;
 }
 
-void Manager::start(int requestsNumber)
+void Manager::start(int requestsNumber, int bufferSize, int clientCount, int serverCount, double a, double b, double lambda)
 {
     //const int requestsNumber = 10;
-    const int bufferSize = 3;
-    const int clientNumber = 2;
-    const int serverNumber = 2;
+    //const int bufferSize = 3;
+    //const int clientNumber = 2;
+    //const int serverNumber = 2;
 
-    runSimulation(clientNumber, bufferSize, serverNumber, requestsNumber);
+    runSimulation(requestsNumber, bufferSize, clientCount, serverCount, a, b, lambda);
 
     Statistics statistics = Statistics(clients_, rejectedRequests_,servicedRequests_, servers_, executionTime_);
     statistics.calculateStatistics();
@@ -32,19 +32,19 @@ void Manager::start(int requestsNumber)
     statistics.printServerTable();
 }
 
-void Manager::runSimulation(int clientNumber, int bufferSize, int serverNumber, int requestsNumber)
+void Manager::runSimulation(int requestsNumber, int bufferSize, int clientCount, int serverCount, double a, double b, double lambda)
 {
-    for (int i = 0; i < clientNumber; ++i)
+    for (int i = 0; i < clientCount; ++i)
     {
-        Client client = Client(i);
+        Client client = Client(i,a,b);
         clients_.push_back(client);
     }
 
     buffer_ = Buffer(bufferSize);
 
-    for (int i = 0; i < serverNumber; ++i)
+    for (int i = 0; i < serverCount; ++i)
     {
-        Server server = Server(i);
+        Server server = Server(i,lambda);
         servers_.push_back(server);
     }
     nextServer_ = servers_.begin();

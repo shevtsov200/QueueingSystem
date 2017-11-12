@@ -6,18 +6,22 @@
 Client::Client()
 {
     testInc_ = 0;
+    a_ = 0;
+    b_ = 1;
 }
 
-Client::Client(int indexNumber) : Client()
+Client::Client(int indexNumber, double a, double b) : Client()
 {
     indexNumber_ = indexNumber;
+    a_ = a;
+    b_ = b;
 }
 
 void Client::generateRequest(double currentTime)
 {
-    const double a = 0;
-    const double b = 1;
-    double creationTime = currentTime + (((double)std::rand() / (double)RAND_MAX) * (b - a) + a);
+
+    double creationTime = currentTime + (((double)std::rand() / (double)RAND_MAX) * (b_ - a_) + a_);
+    std::cout << "b-a " << b_ << " - " << a_ << " creation time = " << creationTime << std::endl;
     Request request = Request(creationTime, indexNumber_, testInc_++);
     request_ = request;
     isFree_ = false;

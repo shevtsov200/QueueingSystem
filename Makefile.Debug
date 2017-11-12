@@ -548,6 +548,11 @@ debug\mainwindow.obj: mainwindow.cpp mainwindow.h \
 		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtGui\qinputmethod.h \
 		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\QButtonGroup \
 		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\qbuttongroup.h \
+		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\QDoubleSpinBox \
+		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\qspinbox.h \
+		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\qabstractspinbox.h \
+		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtGui\qvalidator.h \
+		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtCore\qregularexpression.h \
 		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\QHeaderView \
 		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\qheaderview.h \
 		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\qabstractitemview.h \
@@ -557,26 +562,19 @@ debug\mainwindow.obj: mainwindow.cpp mainwindow.h \
 		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtCore\qitemselectionmodel.h \
 		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\qabstractitemdelegate.h \
 		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\qstyleoption.h \
-		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\qabstractspinbox.h \
-		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtGui\qvalidator.h \
-		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtCore\qregularexpression.h \
 		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\qslider.h \
 		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\qabstractslider.h \
 		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\qstyle.h \
 		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\qtabbar.h \
 		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\qrubberband.h \
-		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\QLineEdit \
-		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\qlineedit.h \
-		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtGui\qtextcursor.h \
-		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtGui\qtextformat.h \
-		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtGui\qpen.h \
-		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtGui\qtextoption.h \
+		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\QMenu \
+		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\qmenu.h \
 		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\QMenuBar \
 		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\qmenubar.h \
-		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\qmenu.h \
 		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\QPushButton \
 		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\qpushbutton.h \
 		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\qabstractbutton.h \
+		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\QSpinBox \
 		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\QStatusBar \
 		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\qstatusbar.h \
 		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\QToolBar \
@@ -587,6 +585,12 @@ debug\mainwindow.obj: mainwindow.cpp mainwindow.h \
 		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\qlayoutitem.h \
 		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\qgridlayout.h \
 		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\QWidget \
+		Manager.h \
+		Client.h \
+		Request.h \
+		Component.h \
+		Buffer.h \
+		Server.h \
 		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\QTableWidget \
 		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\qtablewidget.h \
 		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\qtableview.h \

@@ -10,17 +10,18 @@ Server::Server()
     serviceStartTime_ = 0;
     serviceFinishTime_ = 0;
     allServiceTime_ = 0;
+    lambda_ = 1;
 }
 
-Server::Server(int indexNumber) : Server()
+Server::Server(int indexNumber, double lambda) : Server()
 {
     indexNumber_ = indexNumber;
+    lambda_ = lambda;
 }
 
 void Server::serveRequest(double currentTime, const Request & request)
 {
-    const int lambda = 1;
-    double serviceDuration = (log(std::rand() + 1) - log(RAND_MAX)) / (-lambda);
+    double serviceDuration = (log(std::rand() + 1) - log(RAND_MAX)) / (-lambda_);
     request_ = request;
     serviceStartTime_ = currentTime;
     serviceFinishTime_ = serviceStartTime_ + serviceDuration;

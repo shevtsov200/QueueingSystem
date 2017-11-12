@@ -12,8 +12,8 @@ class Manager
 {
 public:
     Manager();
-    void start(int requestsNumber);
-    void runSimulation(int clientNumber, int bufferSize, int serverNumber, int requestsNumber);
+    void start(int requestsNumber, int bufferSize, int clientCount, int serverCount, double a, double b, double lambda);
+    void runSimulation(int requestsNumber, int bufferSize, int clientCount, int serverCount, double a, double b, double lambda);
 private:
     std::vector<Client> clients_;
     Buffer buffer_;

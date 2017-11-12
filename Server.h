@@ -9,7 +9,7 @@ class Server : public Component
 {
 public:
     Server();
-    Server(int indexNumber);
+    Server(int indexNumber, double lambda);
     void serveRequest(double currentTime, const Request & request);
     double getServiceStartTime() const;
     double getServiceFinishTime() const;
@@ -22,6 +22,7 @@ private:
     double serviceFinishTime_;
 
     double allServiceTime_;
+    double lambda_;
 };
 
 #endif // SERVER_H
