@@ -68,6 +68,12 @@ void Statistics::calculateStatistics()
         double systemStayMean = bufferMean + serviceMean;
         systemStayMeans_.push_back(systemStayMean);
     }
+
+    for(std::vector<Server>::const_iterator it = servers_.cbegin(); it != servers_.cend(); ++it)
+    {
+        double utilizationFactor = it->getAllServiceTime()/executionTime_;
+        utilizationFactors_.push_back(utilizationFactor);
+    }
 }
 
 double Statistics::calculateRejectProbability(double rejectedRequestsCount, double allRequestsCount) const
@@ -213,4 +219,9 @@ const std::vector<double> &Statistics::getBufferVariances() const
 const std::vector<double> &Statistics::getServiceVariances() const
 {
     return serviceVariances_;
+}
+
+const std::vector<double> &Statistics::getUtilizationFactors() const
+{
+    return utilizationFactors_;
 }

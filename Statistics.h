@@ -25,6 +25,7 @@ public:
     const std::vector<double> & getServiceStayMeans() const;
     const std::vector<double> & getBufferVariances() const;
     const std::vector<double> & getServiceVariances() const;
+    const std::vector<double> & getUtilizationFactors() const;
     int getAllRequestCount(int index) const;
 private:
     std::vector<Client> clients_;
@@ -37,7 +38,7 @@ private:
     std::vector<double> rejectProbabilities_,
     systemStayMeans_, bufferStayMeans_,
     serviceStayMeans_, bufferVariances_,
-    serviceVariances_;
+    serviceVariances_, utilizationFactors_;
     double executionTime_;
 
 

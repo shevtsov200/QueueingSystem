@@ -89,9 +89,12 @@ void MainWindow::on_startButton_clicked()
     std::vector<double> serviceStayMeans = statistics.getServiceStayMeans();
     std::vector<double> bufferVariances = statistics.getBufferVariances();
     std::vector<double> serviceVariances = statistics.getServiceVariances();
+    std::vector<double> utilizationFactors = statistics.getUtilizationFactors();
 
     TableWindow *tableWindow = new TableWindow();
     tableWindow->setRowCount(clientCount);
+    tableWindow->setServerRowCount(serverCount);
+    tableWindow->setServerTableItems(utilizationFactors);
 
     for(std::size_t i = 0; i < clientCount; ++i)
     {

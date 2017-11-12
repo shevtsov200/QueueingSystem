@@ -13,21 +13,30 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QTableWidget" name="tableWidget">
+  <widget class="QWidget" name="verticalLayoutWidget">
    <property name="geometry">
     <rect>
      <x>20</x>
      <y>20</y>
-     <width>991</width>
+     <width>993</width>
      <height>261</height>
     </rect>
    </property>
-   <property name="minimumSize">
-    <size>
-     <width>991</width>
-     <height>261</height>
-    </size>
-   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QTableWidget" name="clientsTable">
+      <property name="minimumSize">
+       <size>
+        <width>991</width>
+        <height>0</height>
+       </size>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QTableWidget" name="serversTable"/>
+    </item>
+   </layout>
   </widget>
  </widget>
  <resources/>

@@ -20,6 +20,8 @@ public:
     template< typename T >
     void setItem(int i, int j, T value);
     void setRowCount(int count);
+    void setServerRowCount(int count);
+    void setServerTableItems(const std::vector<double> &utilizationFactors);
 
     ~TableWindow();
 
@@ -32,7 +34,7 @@ void TableWindow::setItem(int i, int j, T value)
 {
     QTableWidgetItem *item = new QTableWidgetItem();
     item->setData(Qt::DisplayRole,value);
-    ui->tableWidget->setItem(i,j,item);
+    ui->clientsTable->setItem(i,j,item);
 }
 
 #endif // TABLEWINDOW_H
