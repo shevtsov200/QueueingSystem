@@ -31,6 +31,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(parametersWindow,
             SIGNAL(changeStackedWidgetIndex(int)), this,
             SLOT(setCurrentIndex(int)));
+    connect(tableWindow, SIGNAL(changeStackedWidgetIndex(int)), this,
+            SLOT(setCurrentIndex(int)));
     connect(parametersWindow, SIGNAL(fillTable(int, int,int, double, double, double, double)), tableWindow,
             SLOT(fillTable(int, int,int, double, double, double, double)));
 }
@@ -42,5 +44,5 @@ MainWindow::~MainWindow()
 
 void MainWindow::setCurrentIndex(int index)
 {
-    ui->stackedWidget->setCurrentIndex(2);
+    ui->stackedWidget->setCurrentIndex(index);
 }

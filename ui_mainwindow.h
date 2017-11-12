@@ -17,7 +17,6 @@
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
-#include <QtWidgets/QPushButton>
 #include <QtWidgets/QStackedWidget>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
@@ -34,7 +33,6 @@ public:
     QStackedWidget *stackedWidget;
     QWidget *page;
     QWidget *page_2;
-    QPushButton *pushButton;
     QMenuBar *menuBar;
     QMenu *menuOptions;
     QToolBar *mainToolBar;
@@ -62,11 +60,6 @@ public:
 
         verticalLayout->addWidget(stackedWidget);
 
-        pushButton = new QPushButton(centralWidget);
-        pushButton->setObjectName(QStringLiteral("pushButton"));
-
-        verticalLayout->addWidget(pushButton);
-
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -91,8 +84,7 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", Q_NULLPTR));
-        pushButton->setText(QApplication::translate("MainWindow", "PushButton", Q_NULLPTR));
-        menuOptions->setTitle(QApplication::translate("MainWindow", "parameters", Q_NULLPTR));
+        menuOptions->setTitle(QApplication::translate("MainWindow", "queuing system", Q_NULLPTR));
     } // retranslateUi
 
 };

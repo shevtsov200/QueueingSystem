@@ -29,6 +29,8 @@ public:
     void setServerTableItems(const std::vector<double> &utilizationFactors);
 
     ~TableWindow();
+signals:
+    void changeStackedWidgetIndex(int index);
 
 private slots:
     void on_backButton_clicked();

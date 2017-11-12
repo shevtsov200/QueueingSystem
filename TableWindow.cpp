@@ -53,6 +53,9 @@ TableWindow::TableWindow(QWidget *parent) :
     QStringList serversHeaderLabels;
     serversHeaderLabels << "server" << "utilization factor";
     ui->serversTable->setHorizontalHeaderLabels(serversHeaderLabels);
+
+    ui->clientsTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->serversTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
 }
 
 void TableWindow::setRowCount(int count)
@@ -86,5 +89,5 @@ TableWindow::~TableWindow()
 
 void TableWindow::on_backButton_clicked()
 {
-
+    emit changeStackedWidgetIndex(3);
 }
