@@ -12,7 +12,7 @@ class Manager
 {
 public:
     Manager();
-    void start();
+    void start(int requestsNumber);
     void runSimulation(int clientNumber, int bufferSize, int serverNumber, int requestsNumber);
 private:
     std::vector<Client> clients_;

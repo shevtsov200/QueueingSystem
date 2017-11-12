@@ -15,9 +15,9 @@ Manager::Manager()
     numberOfGeneratedRequests_ = 0;
 }
 
-void Manager::start()
+void Manager::start(int requestsNumber)
 {
-    const int requestsNumber = 10;
+    //const int requestsNumber = 10;
     const int bufferSize = 3;
     const int clientNumber = 2;
     const int serverNumber = 2;

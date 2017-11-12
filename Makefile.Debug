@@ -565,18 +565,32 @@ debug\mainwindow.obj: mainwindow.cpp mainwindow.h \
 		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\qstyle.h \
 		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\qtabbar.h \
 		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\qrubberband.h \
+		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\QLineEdit \
+		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\qlineedit.h \
+		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtGui\qtextcursor.h \
+		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtGui\qtextformat.h \
+		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtGui\qpen.h \
+		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtGui\qtextoption.h \
 		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\QMenuBar \
 		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\qmenubar.h \
 		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\qmenu.h \
+		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\QPushButton \
+		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\qpushbutton.h \
+		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\qabstractbutton.h \
 		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\QStatusBar \
 		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\qstatusbar.h \
-		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\QTableView \
-		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\qtableview.h \
 		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\QToolBar \
 		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\qtoolbar.h \
+		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\QVBoxLayout \
+		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\qboxlayout.h \
+		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\qlayout.h \
+		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\qlayoutitem.h \
+		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\qgridlayout.h \
 		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\QWidget \
-		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtGui\QStandardItemModel \
-		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtGui\qstandarditemmodel.h
+		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\QTableWidget \
+		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\qtablewidget.h \
+		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\qtableview.h \
+		..\..\Qt\Qt5.6.3\5.6.3\msvc2015_64\include\QtWidgets\QTableWidgetItem
 
 debug\Request.obj: Request.cpp Request.h
 
