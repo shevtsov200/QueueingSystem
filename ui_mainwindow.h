@@ -13,18 +13,14 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
-#include <QtWidgets/QDoubleSpinBox>
-#include <QtWidgets/QFormLayout>
 #include <QtWidgets/QHeaderView>
-#include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
-#include <QtWidgets/QSpinBox>
+#include <QtWidgets/QStackedWidget>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
-#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -33,24 +29,10 @@ class Ui_MainWindow
 {
 public:
     QWidget *centralWidget;
-    QWidget *widget;
-    QVBoxLayout *verticalLayout;
-    QFormLayout *formLayout;
-    QSpinBox *requestsSpinBox;
-    QSpinBox *bufferSpinBox;
-    QSpinBox *clientsSpinBox;
-    QSpinBox *serversSpinBox;
-    QDoubleSpinBox *aDoubleSpinBox;
-    QDoubleSpinBox *bDoubleSpinBox;
-    QDoubleSpinBox *lambdaDoubleSpinBox;
-    QLabel *label;
-    QLabel *label_2;
-    QLabel *label_3;
-    QLabel *label_4;
-    QLabel *label_5;
-    QLabel *label_6;
-    QLabel *label_7;
-    QPushButton *startButton;
+    QStackedWidget *stackedWidget;
+    QWidget *page;
+    QWidget *page_2;
+    QPushButton *pushButton;
     QMenuBar *menuBar;
     QMenu *menuOptions;
     QToolBar *mainToolBar;
@@ -60,102 +42,25 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(314, 301);
+        MainWindow->resize(574, 413);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
-        widget = new QWidget(centralWidget);
-        widget->setObjectName(QStringLiteral("widget"));
-        widget->setGeometry(QRect(70, 10, 171, 228));
-        verticalLayout = new QVBoxLayout(widget);
-        verticalLayout->setSpacing(6);
-        verticalLayout->setContentsMargins(11, 11, 11, 11);
-        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
-        verticalLayout->setContentsMargins(0, 0, 0, 0);
-        formLayout = new QFormLayout();
-        formLayout->setSpacing(6);
-        formLayout->setObjectName(QStringLiteral("formLayout"));
-        requestsSpinBox = new QSpinBox(widget);
-        requestsSpinBox->setObjectName(QStringLiteral("requestsSpinBox"));
-
-        formLayout->setWidget(0, QFormLayout::FieldRole, requestsSpinBox);
-
-        bufferSpinBox = new QSpinBox(widget);
-        bufferSpinBox->setObjectName(QStringLiteral("bufferSpinBox"));
-
-        formLayout->setWidget(1, QFormLayout::FieldRole, bufferSpinBox);
-
-        clientsSpinBox = new QSpinBox(widget);
-        clientsSpinBox->setObjectName(QStringLiteral("clientsSpinBox"));
-
-        formLayout->setWidget(2, QFormLayout::FieldRole, clientsSpinBox);
-
-        serversSpinBox = new QSpinBox(widget);
-        serversSpinBox->setObjectName(QStringLiteral("serversSpinBox"));
-
-        formLayout->setWidget(3, QFormLayout::FieldRole, serversSpinBox);
-
-        aDoubleSpinBox = new QDoubleSpinBox(widget);
-        aDoubleSpinBox->setObjectName(QStringLiteral("aDoubleSpinBox"));
-
-        formLayout->setWidget(4, QFormLayout::FieldRole, aDoubleSpinBox);
-
-        bDoubleSpinBox = new QDoubleSpinBox(widget);
-        bDoubleSpinBox->setObjectName(QStringLiteral("bDoubleSpinBox"));
-
-        formLayout->setWidget(5, QFormLayout::FieldRole, bDoubleSpinBox);
-
-        lambdaDoubleSpinBox = new QDoubleSpinBox(widget);
-        lambdaDoubleSpinBox->setObjectName(QStringLiteral("lambdaDoubleSpinBox"));
-
-        formLayout->setWidget(6, QFormLayout::FieldRole, lambdaDoubleSpinBox);
-
-        label = new QLabel(widget);
-        label->setObjectName(QStringLiteral("label"));
-
-        formLayout->setWidget(0, QFormLayout::LabelRole, label);
-
-        label_2 = new QLabel(widget);
-        label_2->setObjectName(QStringLiteral("label_2"));
-
-        formLayout->setWidget(1, QFormLayout::LabelRole, label_2);
-
-        label_3 = new QLabel(widget);
-        label_3->setObjectName(QStringLiteral("label_3"));
-
-        formLayout->setWidget(2, QFormLayout::LabelRole, label_3);
-
-        label_4 = new QLabel(widget);
-        label_4->setObjectName(QStringLiteral("label_4"));
-
-        formLayout->setWidget(3, QFormLayout::LabelRole, label_4);
-
-        label_5 = new QLabel(widget);
-        label_5->setObjectName(QStringLiteral("label_5"));
-
-        formLayout->setWidget(4, QFormLayout::LabelRole, label_5);
-
-        label_6 = new QLabel(widget);
-        label_6->setObjectName(QStringLiteral("label_6"));
-
-        formLayout->setWidget(5, QFormLayout::LabelRole, label_6);
-
-        label_7 = new QLabel(widget);
-        label_7->setObjectName(QStringLiteral("label_7"));
-
-        formLayout->setWidget(6, QFormLayout::LabelRole, label_7);
-
-
-        verticalLayout->addLayout(formLayout);
-
-        startButton = new QPushButton(widget);
-        startButton->setObjectName(QStringLiteral("startButton"));
-
-        verticalLayout->addWidget(startButton);
-
+        stackedWidget = new QStackedWidget(centralWidget);
+        stackedWidget->setObjectName(QStringLiteral("stackedWidget"));
+        stackedWidget->setGeometry(QRect(50, 10, 441, 281));
+        page = new QWidget();
+        page->setObjectName(QStringLiteral("page"));
+        stackedWidget->addWidget(page);
+        page_2 = new QWidget();
+        page_2->setObjectName(QStringLiteral("page_2"));
+        stackedWidget->addWidget(page_2);
+        pushButton = new QPushButton(centralWidget);
+        pushButton->setObjectName(QStringLiteral("pushButton"));
+        pushButton->setGeometry(QRect(60, 310, 75, 51));
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 314, 21));
+        menuBar->setGeometry(QRect(0, 0, 574, 21));
         menuOptions = new QMenu(menuBar);
         menuOptions->setObjectName(QStringLiteral("menuOptions"));
         MainWindow->setMenuBar(menuBar);
@@ -176,14 +81,7 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", Q_NULLPTR));
-        label->setText(QApplication::translate("MainWindow", "requests", Q_NULLPTR));
-        label_2->setText(QApplication::translate("MainWindow", "buffer", Q_NULLPTR));
-        label_3->setText(QApplication::translate("MainWindow", "clients", Q_NULLPTR));
-        label_4->setText(QApplication::translate("MainWindow", "servers", Q_NULLPTR));
-        label_5->setText(QApplication::translate("MainWindow", "a", Q_NULLPTR));
-        label_6->setText(QApplication::translate("MainWindow", "b", Q_NULLPTR));
-        label_7->setText(QApplication::translate("MainWindow", "lambda", Q_NULLPTR));
-        startButton->setText(QApplication::translate("MainWindow", "Start", Q_NULLPTR));
+        pushButton->setText(QApplication::translate("MainWindow", "PushButton", Q_NULLPTR));
         menuOptions->setTitle(QApplication::translate("MainWindow", "parameters", Q_NULLPTR));
     } // retranslateUi
 

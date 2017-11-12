@@ -6,106 +6,38 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>314</width>
-    <height>301</height>
+    <width>574</width>
+    <height>413</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QWidget" name="">
+   <widget class="QStackedWidget" name="stackedWidget">
     <property name="geometry">
      <rect>
-      <x>70</x>
+      <x>50</x>
       <y>10</y>
-      <width>171</width>
-      <height>228</height>
+      <width>441</width>
+      <height>281</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <layout class="QFormLayout" name="formLayout">
-       <item row="0" column="1">
-        <widget class="QSpinBox" name="requestsSpinBox"/>
-       </item>
-       <item row="1" column="1">
-        <widget class="QSpinBox" name="bufferSpinBox"/>
-       </item>
-       <item row="2" column="1">
-        <widget class="QSpinBox" name="clientsSpinBox"/>
-       </item>
-       <item row="3" column="1">
-        <widget class="QSpinBox" name="serversSpinBox"/>
-       </item>
-       <item row="4" column="1">
-        <widget class="QDoubleSpinBox" name="aDoubleSpinBox"/>
-       </item>
-       <item row="5" column="1">
-        <widget class="QDoubleSpinBox" name="bDoubleSpinBox"/>
-       </item>
-       <item row="6" column="1">
-        <widget class="QDoubleSpinBox" name="lambdaDoubleSpinBox"/>
-       </item>
-       <item row="0" column="0">
-        <widget class="QLabel" name="label">
-         <property name="text">
-          <string>requests</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="label_2">
-         <property name="text">
-          <string>buffer</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="label_3">
-         <property name="text">
-          <string>clients</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="label_4">
-         <property name="text">
-          <string>servers</string>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="0">
-        <widget class="QLabel" name="label_5">
-         <property name="text">
-          <string>a</string>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="0">
-        <widget class="QLabel" name="label_6">
-         <property name="text">
-          <string>b</string>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="0">
-        <widget class="QLabel" name="label_7">
-         <property name="text">
-          <string>lambda</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <widget class="QPushButton" name="startButton">
-       <property name="text">
-        <string>Start</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
+    <widget class="QWidget" name="page"/>
+    <widget class="QWidget" name="page_2"/>
+   </widget>
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>310</y>
+      <width>75</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>PushButton</string>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -113,7 +45,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>314</width>
+     <width>574</width>
      <height>21</height>
     </rect>
    </property>

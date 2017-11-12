@@ -14,6 +14,11 @@ class TableWindow : public QWidget
 {
     Q_OBJECT
 
+public slots:
+    void fillTable(int requestsCount, int bufferSize,
+                   int clientCount, double serverCount,
+                   double a, double b, double lambda);
+
 public:
     explicit TableWindow(QWidget *parent = 0);
 
@@ -24,6 +29,9 @@ public:
     void setServerTableItems(const std::vector<double> &utilizationFactors);
 
     ~TableWindow();
+
+private slots:
+    void on_backButton_clicked();
 
 private:
     Ui::TableWindow *ui;

@@ -22,7 +22,8 @@ SOURCES += main.cpp\
     Buffer.cpp \
     Component.cpp \
     Statistics.cpp \
-    TableWindow.cpp
+    TableWindow.cpp \
+    ParametersWindow.cpp
 
 HEADERS  += mainwindow.h \
     Request.h \
@@ -33,7 +34,9 @@ HEADERS  += mainwindow.h \
     Buffer.h \
     Component.h \
     Statistics.h \
-    TableWindow.h
+    TableWindow.h \
+    ParametersWindow.h
 
 FORMS    += mainwindow.ui \
-    TableWindow.ui
+    TableWindow.ui \
+    ParametersWindow.ui

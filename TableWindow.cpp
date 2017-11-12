@@ -1,6 +1,40 @@
 #include "TableWindow.h"
 #include "ui_TableWindow.h"
 
+#include "Manager.h"
+#include "Statistics.h"
+
+void TableWindow::fillTable(int requestsCount, int bufferSize, int clientCount, double serverCount, double a, double b, double lambda)
+{
+    Manager manager = Manager();
+    Statistics statistics = manager.start(requestsCount, bufferSize, clientCount, serverCount, a, b, lambda);
+
+    std::vector<int> clientRequestsCounts = statistics.getClientRequestCounts();
+    std::vector<double> rejectProbabilities = statistics.getRejectProbabilities();
+    std::vector<double> systemStayMeans = statistics.getSystemStayMeans();
+    std::vector<double> bufferStayMeans = statistics.getBufferStayMeans();
+    std::vector<double> serviceStayMeans = statistics.getServiceStayMeans();
+    std::vector<double> bufferVariances = statistics.getBufferVariances();
+    std::vector<double> serviceVariances = statistics.getServiceVariances();
+    std::vector<double> utilizationFactors = statistics.getUtilizationFactors();
+
+    setRowCount(clientCount);
+    setServerRowCount(serverCount);
+    setServerTableItems(utilizationFactors);
+
+    for(std::size_t i = 0; i < clientCount; ++i)
+    {
+        setItem(i,0,i);
+        setItem(i,1,clientRequestsCounts[i]);
+        setItem(i,2,rejectProbabilities[i]);
+        setItem(i,3,systemStayMeans[i]);
+        setItem(i,4,bufferStayMeans[i]);
+        setItem(i,5,serviceStayMeans[i]);
+        setItem(i,6,bufferVariances[i]);
+        setItem(i,7,serviceVariances[i]);
+    }
+}
+
 TableWindow::TableWindow(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::TableWindow)
@@ -8,7 +42,7 @@ TableWindow::TableWindow(QWidget *parent) :
     ui->setupUi(this);
 
     ui->clientsTable->setColumnCount(8);
-    //ui->clientsTable->setRowCount(1);
+
     QStringList clientsHeaderLabels;
     clientsHeaderLabels << "client" << "requests count"
                             << "p_reject" << "T_sys" << "T_buf"
@@ -19,8 +53,6 @@ TableWindow::TableWindow(QWidget *parent) :
     QStringList serversHeaderLabels;
     serversHeaderLabels << "server" << "utilization factor";
     ui->serversTable->setHorizontalHeaderLabels(serversHeaderLabels);
-
-    //ui->serversTable->
 }
 
 void TableWindow::setRowCount(int count)
@@ -50,4 +82,9 @@ void TableWindow::setServerTableItems(const std::vector<double> &utilizationFact
 TableWindow::~TableWindow()
 {
     delete ui;
+}
+
+void TableWindow::on_backButton_clicked()
+{
+
 }

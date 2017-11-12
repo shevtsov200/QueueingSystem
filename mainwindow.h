@@ -19,9 +19,7 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_actionStart_triggered();
-
-    void on_startButton_clicked();
+    void setCurrentIndex(int index);
 
 private:
     Ui::MainWindow *ui;
