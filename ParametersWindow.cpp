@@ -14,6 +14,7 @@ ParametersWindow::ParametersWindow(QWidget *parent) :
 
     ui->requestsSpinBox->setMinimum(1);
     ui->requestsSpinBox->setMaximum(std::numeric_limits<int>::max());
+    ui->requestsSpinBox->setValue(10);
 
     ui->bufferSpinBox->setMinimum(1);
     ui->bufferSpinBox->setMaximum(std::numeric_limits<int>::max());
@@ -36,11 +37,13 @@ ParametersWindow::ParametersWindow(QWidget *parent) :
     ui->bDoubleSpinBox->setMaximum(std::numeric_limits<double>::max());
     ui->bDoubleSpinBox->setDecimals(precision);
     ui->bDoubleSpinBox->setSingleStep(step);
+    ui->bDoubleSpinBox->setValue(1);
 
     ui->lambdaDoubleSpinBox->setMinimum(0.0001);
     ui->lambdaDoubleSpinBox->setMaximum(std::numeric_limits<double>::max());
     ui->lambdaDoubleSpinBox->setDecimals(precision);
     ui->lambdaDoubleSpinBox->setSingleStep(step);
+    ui->lambdaDoubleSpinBox->setValue(0.5);
 }
 
 ParametersWindow::~ParametersWindow()
