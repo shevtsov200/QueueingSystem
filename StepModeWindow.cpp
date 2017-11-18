@@ -15,9 +15,17 @@ void StepModeWindow::startStepMode(int requestsCount, int bufferSize, int client
     states_ = manager.getStates();
     currentStep_ = 0;
 
+    for(std::size_t i = 0; i < states_.back().servers_.size(); ++i)
+    {
+        QLabel *label = new QLabel();
+        label->setText("empty");
+        label->setMinimumWidth(100);
+        label->setObjectName(QString::fromStdString(states_.back().servers_[i].getServerName()));
+        ui->verticalLayout->addWidget(label);
+    }
+
     ui->clientLabel->setText("empty");
     ui->bufferLabel->setText("empty");
-    ui->serverLabel->setText("empty");
 
     std::cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << std::endl;
     int i = 0;
@@ -54,7 +62,11 @@ void StepModeWindow::goToNextStep()
     SystemState state = states_[currentStep_];
     ui->clientLabel->setText("empty");
     ui->bufferLabel->setText("empty");
-    ui->serverLabel->setText("empty");
+
+    foreach(QLabel *label, ui->verticalLayoutWidget->findChildren<QLabel*>())
+    {
+        label->setText("empty");
+    }
 
     if(!state.clients_[0].isFree())
     {
@@ -73,7 +85,11 @@ void StepModeWindow::goToNextStep()
     {
         Request request = state.servers_[0].retrieveRequest();
         QString serverText = QString::fromStdString(request.getRequestName());
-        ui->serverLabel->setText(serverText);
+
+        QString name = QString::fromStdString(state.servers_[0].getServerName());
+        QLabel * label = ui->verticalLayoutWidget->findChild<QLabel*>(name);
+
+        label->setText(serverText);
     }
 
     if(currentStep_ < states_.size()-1)
