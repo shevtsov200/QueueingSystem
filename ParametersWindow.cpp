@@ -14,7 +14,7 @@ ParametersWindow::ParametersWindow(QWidget *parent) :
 
     ui->requestsSpinBox->setMinimum(1);
     ui->requestsSpinBox->setMaximum(std::numeric_limits<int>::max());
-    ui->requestsSpinBox->setValue(10);
+    ui->requestsSpinBox->setValue(2);
 
     ui->bufferSpinBox->setMinimum(1);
     ui->bufferSpinBox->setMaximum(std::numeric_limits<int>::max());

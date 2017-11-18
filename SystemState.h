@@ -8,14 +8,14 @@
 
 struct SystemState
 {
-    //Client client_;
     std::vector<Client> clients_;
     Buffer buffer_;
     std::vector<Server> servers_;
-    //Server server_;
+    std::vector<Server>::iterator currentServer_;
     std::vector<Request> rejected_;
 
-    SystemState(std::vector<Client> clients, Buffer buffer, std::vector<Server> servers, std::vector<Request> rejected);
+    SystemState(std::vector<Client> clients, Buffer buffer, std::vector<Server> servers,
+                std::vector<Request> rejected);
 };
 
 #endif // SYSTEMSTATE_H

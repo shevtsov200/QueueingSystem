@@ -158,6 +158,7 @@ void Manager::sendRequestToServer()
             std::cout << request << " -> " << *nextServer_ << " time: " << currentTime_ <<  std::endl;
             nextServer_->serveRequest(currentTime_,request);
             saveState();
+            states_.back().currentServer_ = it;
             break;
         }
         it = moveRingIt(it);

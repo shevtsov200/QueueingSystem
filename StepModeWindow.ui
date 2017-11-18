@@ -48,19 +48,6 @@
     <string>buffer                     </string>
    </property>
   </widget>
-  <widget class="QLabel" name="serverLabel">
-   <property name="geometry">
-    <rect>
-     <x>420</x>
-     <y>80</y>
-     <width>111</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>server                     </string>
-   </property>
-  </widget>
   <widget class="QPushButton" name="nextStepButton">
    <property name="geometry">
     <rect>
@@ -86,6 +73,25 @@
    <property name="text">
     <string>rejected                     </string>
    </property>
+  </widget>
+  <widget class="QWidget" name="verticalLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>490</x>
+     <y>50</y>
+     <width>160</width>
+     <height>80</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QLabel" name="serverLabel">
+      <property name="text">
+       <string>server                     </string>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
  </widget>
  <resources/>
