@@ -11,7 +11,6 @@ struct SystemState
     std::vector<Client> clients_;
     Buffer buffer_;
     std::vector<Server> servers_;
-    std::vector<Server>::iterator currentServer_;
     std::vector<Request> rejected_;
 
     SystemState(std::vector<Client> clients, Buffer buffer, std::vector<Server> servers,
