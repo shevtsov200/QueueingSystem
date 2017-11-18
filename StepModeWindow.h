@@ -28,7 +28,7 @@ private slots:
 private:
     Ui::StepModeWindow *ui;
     std::vector<SystemState> states_;
-    int currentStep_;
+    std::size_t currentStep_;
 
     void goToNextStep();
 };

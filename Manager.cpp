@@ -73,14 +73,13 @@ void Manager::runSimulation(int requestsNumber, int bufferSize, int clientCount,
             {
                 if(numberOfGeneratedRequests_ < requestsNumber)
                 {
+                    saveState();
                     Request request = clientIt->retrieveRequest();
                     numberOfGeneratedRequests_++;
                     currentTime_ = request.getCreationTime();
                     std::cout << *clientIt << " -> " << request << " time: " << currentTime_ << std::endl;
 
-                    /*SystemState state(*clientIt, buffer_, Server(), rejectedRequests_);
-                    states_.push_back(state);*/
-                    saveState();
+
                     sendRequestToBuffer(request);
                 }
             }
@@ -126,6 +125,7 @@ void Manager::sendRequestToServiced(std::vector<Server>::iterator serverIt)
     servicedRequest.setEndTime(serverIt->getServiceFinishTime());
     servicedRequests_.push_back(servicedRequest);
     std::cout << servicedRequest << "-> serviced" << " time: " << servicedRequest.getEndTime() <<  std::endl;
+    saveState();
 
     if(!requestsLeftInSystem())
     {
@@ -142,6 +142,7 @@ void Manager::sendRequestToBuffer(Request & request)
     }
     buffer_.addRequest(request);
     std::cout << request << " -> buffer" << " time: " << currentTime_ <<  std::endl;
+    saveState();
 }
 
 void Manager::sendRequestToServer()
@@ -156,6 +157,7 @@ void Manager::sendRequestToServer()
             Request request = buffer_.getRequest();
             std::cout << request << " -> " << *nextServer_ << " time: " << currentTime_ <<  std::endl;
             nextServer_->serveRequest(currentTime_,request);
+            saveState();
             break;
         }
         it = moveRingIt(it);
@@ -224,6 +226,7 @@ void Manager::saveState()
 {
     SystemState state(clients_, buffer_, servers_, rejectedRequests_);
     states_.push_back(state);
+    std::cout << "new size: " << states_.size() << std::endl;
 }
 
 bool Manager::requestsLeftInSystem() const
