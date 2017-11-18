@@ -23,7 +23,9 @@ SOURCES += main.cpp\
     Component.cpp \
     Statistics.cpp \
     TableWindow.cpp \
-    ParametersWindow.cpp
+    ParametersWindow.cpp \
+    StepModeWindow.cpp \
+    SystemState.cpp
 
 HEADERS  += mainwindow.h \
     Request.h \
@@ -35,8 +37,11 @@ HEADERS  += mainwindow.h \
     Component.h \
     Statistics.h \
     TableWindow.h \
-    ParametersWindow.h
+    ParametersWindow.h \
+    StepModeWindow.h \
+    SystemState.h
 
 FORMS    += mainwindow.ui \
     TableWindow.ui \
-    ParametersWindow.ui
+    ParametersWindow.ui \
+    StepModeWindow.ui

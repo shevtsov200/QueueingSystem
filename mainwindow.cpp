@@ -3,6 +3,7 @@
 #include "Manager.h"
 #include "TableWindow.h"
 #include "ParametersWindow.h"
+#include "StepModeWindow.h"
 
 #include <QTableWidget>
 #include <QTableWidgetItem>
@@ -23,9 +24,11 @@ MainWindow::MainWindow(QWidget *parent) :
 
     QWidget * tableWindow = new TableWindow();
     QWidget * parametersWindow = new ParametersWindow();
+    QWidget * stepModeWindow = new StepModeWindow();
 
     ui->stackedWidget->addWidget(tableWindow);
     ui->stackedWidget->addWidget(parametersWindow);
+    ui->stackedWidget->addWidget(stepModeWindow);
     ui->stackedWidget->setCurrentWidget(parametersWindow);
 
     connect(parametersWindow,
@@ -35,6 +38,8 @@ MainWindow::MainWindow(QWidget *parent) :
             SLOT(setCurrentIndex(int)));
     connect(parametersWindow, SIGNAL(fillTable(int, int,int, double, double, double, double)), tableWindow,
             SLOT(fillTable(int, int,int, double, double, double, double)));
+    connect(parametersWindow, SIGNAL(startStepMode(int, int,int, double, double, double, double)), stepModeWindow,
+            SLOT(startStepMode(int, int,int, double, double, double, double)));
 }
 
 MainWindow::~MainWindow()

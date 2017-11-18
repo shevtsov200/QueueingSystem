@@ -1,9 +1,11 @@
 #include "Server.h"
 #include "Request.h"
+
 #include <cstdlib>
 #include <cmath>
 #include <iostream>
 #include <string>
+#include <sstream>
 
 Server::Server()
 {
@@ -59,7 +61,14 @@ void Server::print() const
     std::cout << std::endl;
 }
 
+std::string Server::getServerName() const
+{
+    std::stringstream stream;
+    stream << "server" << getIndex();
+    return stream.str();
+}
+
 std::ostream &operator<<(std::ostream &stream, const Server &server)
 {
-    return stream << "server" << server.getIndex();
+    return stream << server.getServerName();
 }

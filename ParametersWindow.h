@@ -19,10 +19,15 @@ signals:
     void fillTable(int requestsCount, int bufferSize,
                              int clientsCount, double serverCount,
                              double a, double b, double lambda);
+    void startStepMode(int requestsCount, int bufferSize,
+                       int clientsCount, double serverCount,
+                       double a, double b, double lambda);
 
 
 private slots:
     void on_startButton_clicked();
+
+    void on_stepModeButton_clicked();
 
 private:
     Ui::ParametersWindow *ui;

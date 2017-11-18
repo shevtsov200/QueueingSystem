@@ -2,6 +2,7 @@
 #define REQUEST_H
 
 #include <iosfwd>
+#include <string>
 
 class Request
 {
@@ -18,6 +19,7 @@ public:
     void setServiceStartTime(double serviceStartTime);
     void setEndTime(double endTime);
 
+    std::string getRequestName() const;
     friend std::ostream& operator<<(std::ostream & stream, const Request & request);
 private:
     double creationTime_;

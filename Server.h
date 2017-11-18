@@ -3,7 +3,9 @@
 
 #include "Request.h"
 #include "Component.h"
+
 #include <iosfwd>
+#include <string>
 
 class Server : public Component
 {
@@ -16,6 +18,7 @@ public:
     double getAllServiceTime() const;
     void print() const;
 
+    std::string getServerName() const;
     friend std::ostream& operator<<(std::ostream & stream, const Server & server);
 private:
     double serviceStartTime_;

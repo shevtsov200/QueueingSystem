@@ -1,6 +1,6 @@
 #include "Request.h"
 #include <iostream>
-
+#include <sstream>
 
 Request::Request()
 {
@@ -53,7 +53,14 @@ void Request::setEndTime(double endTime)
     endTime_ = endTime;
 }
 
+std::string Request::getRequestName() const
+{
+    std::stringstream stream;
+    stream << "request"<<"("<<clientNumber_<<","<<requestNumber_<<")";
+    return stream.str();
+}
+
 std::ostream& operator<<(std::ostream & stream, const Request & request)
 {
-    return stream << "request"<<"("<<request.clientNumber_<<","<<request.requestNumber_<<")";
+    return stream << request.getRequestName();
 }

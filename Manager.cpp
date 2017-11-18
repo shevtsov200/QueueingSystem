@@ -77,6 +77,10 @@ void Manager::runSimulation(int requestsNumber, int bufferSize, int clientCount,
                     numberOfGeneratedRequests_++;
                     currentTime_ = request.getCreationTime();
                     std::cout << *clientIt << " -> " << request << " time: " << currentTime_ << std::endl;
+
+                    /*SystemState state(*clientIt, buffer_, Server(), rejectedRequests_);
+                    states_.push_back(state);*/
+                    saveState();
                     sendRequestToBuffer(request);
                 }
             }
@@ -101,6 +105,11 @@ void Manager::runSimulation(int requestsNumber, int bufferSize, int clientCount,
         printComponents();
         std::cout << "---------------------------------------------" << std::endl;
     }
+}
+
+const std::vector<SystemState> Manager::getStates() const
+{
+    return states_;
 }
 
 void Manager::rejectRequest(Request & request)
@@ -211,6 +220,12 @@ void Manager::printComponents() const
     });
 }
 
+void Manager::saveState()
+{
+    SystemState state(clients_, buffer_, servers_, rejectedRequests_);
+    states_.push_back(state);
+}
+
 bool Manager::requestsLeftInSystem() const
 {
     bool serversEmpty = (std::find_if_not(servers_.cbegin(),servers_.cend(),
@@ -222,19 +237,3 @@ bool Manager::requestsLeftInSystem() const
 
     return (!serversEmpty || !buffer_.isEmpty());
 }
-
-/*double Manager::calculateVariance(const std::vector<double> & values) const
-{
-    double mean = calculateMean(values);
-    double squareSum = std::inner_product(values.cbegin(), values.cend(),
-                                          values.cbegin(),0.0);
-    double variance = squareSum/values.size() - mean*mean;
-    return variance;
-}
-
-double Manager::calculateMean(const std::vector<double> & values) const
-{
-    double sum = std::accumulate(values.cbegin(),values.cend(),0.0);
-    double mean = sum / values.size();
-    return mean;
-}*/

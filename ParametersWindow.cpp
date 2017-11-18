@@ -70,3 +70,23 @@ void ParametersWindow::on_startButton_clicked()
     emit changeStackedWidgetIndex(2);
     emit fillTable(requestsCount, bufferSize, clientCount, serverCount, a, b, lambda);
 }
+
+void ParametersWindow::on_stepModeButton_clicked()
+{
+    int requestsCount = ui->requestsSpinBox->text().toInt();
+    int bufferSize = ui->bufferSpinBox->text().toInt();
+    int clientCount = ui->clientsSpinBox->text().toInt();
+    int serverCount = ui->serversSpinBox->text().toInt();
+
+    QLocale russian(QLocale::Russian);
+    QString aString = ui->aDoubleSpinBox->text();
+    QString bString = ui->bDoubleSpinBox->text();
+    QString lambdaString = ui->lambdaDoubleSpinBox->text();
+
+    double a = russian.toDouble(aString);
+    double b = russian.toDouble(bString);
+    double lambda = russian.toDouble(lambdaString);
+
+    emit changeStackedWidgetIndex(4);
+    emit startStepMode(requestsCount, bufferSize, clientCount, serverCount, a, b, lambda);
+}

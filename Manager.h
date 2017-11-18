@@ -6,6 +6,7 @@
 #include "Server.h"
 #include "Request.h"
 #include "Statistics.h"
+#include "SystemState.h"
 
 #include <vector>
 #include <functional>
@@ -16,6 +17,8 @@ public:
     Manager();
     Statistics start(int requestsNumber, int bufferSize, int clientCount, int serverCount, double a, double b, double lambda);
     void runSimulation(int requestsNumber, int bufferSize, int clientCount, int serverCount, double a, double b, double lambda);
+
+    const std::vector<SystemState> getStates() const;
 private:
     std::vector<Client> clients_;
     Buffer buffer_;
@@ -25,6 +28,8 @@ private:
     std::vector<Request> servicedRequests_;
     std::vector<Request> rejectedRequests_;
     int numberOfGeneratedRequests_;
+
+    std::vector<SystemState> states_;
 
     double currentTime_;
     double executionTime_;
@@ -39,6 +44,7 @@ private:
     std::vector<Server>::iterator moveRingIt(std::vector<Server>::iterator it);
 
     void printComponents() const;
+    void saveState();
     bool requestsLeftInSystem() const;
 };
 
