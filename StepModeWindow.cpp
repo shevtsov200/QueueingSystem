@@ -39,21 +39,8 @@ void StepModeWindow::startStepMode(int requestsCount, int bufferSize, int client
         ui->verticalLayout->addWidget(label);
     }
 
-    std::cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << std::endl;
-    int i = 0;
-    for(auto it = states_.cbegin(); it != states_.cend(); ++it)
-    {
-        std::cout << i++ << std::endl;
-        it->buffer_.print();
-        std::for_each(it->servers_.begin(),it->servers_.end(),
-                      [](const Server & server)
-        {
-            server.print();
-        });
-        std::cout << std::endl;
-    }
-
-    std::cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << std::endl;
+    ui->servicedLabel->setText(EMPTY_TEXT);
+    ui->rejectedLabel->setText(EMPTY_TEXT);
 }
 
 StepModeWindow::StepModeWindow(QWidget *parent) :
@@ -71,23 +58,26 @@ StepModeWindow::~StepModeWindow()
 void StepModeWindow::goToNextStep()
 {
     std::cout << "current step: " << currentStep_ << std::endl;
+    printCurrentState();
     SystemState state = states_[currentStep_];
-    //ui->clientLabel->setText("empty");
 
     foreach(QLabel *label, ui->verticalLayoutWidget->findChildren<QLabel*>())
     {
-        label->setText("empty");
+        label->setText(EMPTY_TEXT);
     }
 
     foreach(QLabel *label, ui->verticalLayoutWidget_2->findChildren<QLabel*>())
     {
-        label->setText("empty");
+        label->setText(EMPTY_TEXT);
     }
 
     foreach(QLabel *label, ui->verticalLayoutWidget_3->findChildren<QLabel*>())
     {
-        label->setText("empty");
+        label->setText(EMPTY_TEXT);
     }
+
+    ui->rejectedLabel->setText(EMPTY_TEXT);
+    ui->servicedLabel->setText(EMPTY_TEXT);
 
     for(std::size_t i = 0; i < state.clients_.size(); ++i)
     {
@@ -130,6 +120,22 @@ void StepModeWindow::goToNextStep()
         }
     }
 
+    if(!state.serviced_.empty())
+    {
+        Request request = state.serviced_.back();
+        QString servicedText = QString::fromStdString(request.getRequestName());
+
+        ui->servicedLabel->setText(servicedText);
+    }
+
+    if(!state.rejected_.empty())
+    {
+        Request request = state.rejected_.back();
+        QString rejectedText = QString::fromStdString(request.getRequestName());
+
+        ui->rejectedLabel->setText(rejectedText);
+    }
+
     if(currentStep_ < states_.size()-1)
     {
         ++currentStep_;
@@ -143,10 +149,25 @@ void StepModeWindow::goToNextStep()
 
 void StepModeWindow::initializeLabel(QLabel *label, QString name)
 {
-    label->setText("empty");
+    label->setText(EMPTY_TEXT);
     label->setMinimumWidth(100);
     label->setMinimumHeight(50);
     label->setObjectName(name);
+}
+
+void StepModeWindow::printCurrentState()
+{
+    std::cout << "-------------------------------------" << std::endl;
+    std::size_t i = currentStep_;
+    states_[i].buffer_.print();
+    std::for_each(states_[i].servers_.begin(),states_[i].servers_.end(),
+                  [](const Server & server)
+    {
+        server.print();
+    });
+    std::cout << std::endl;
+
+    std::cout << "-------------------------------------" << std::endl;
 }
 
 void StepModeWindow::on_nextStepButton_clicked()

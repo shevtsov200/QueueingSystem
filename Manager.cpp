@@ -73,12 +73,10 @@ void Manager::runSimulation(int requestsNumber, int bufferSize, int clientCount,
             {
                 if(numberOfGeneratedRequests_ < requestsNumber)
                 {
-                    //saveState();
-                    SystemState state(clients_, buffer_, servers_, rejectedRequests_);
                     Request request = clientIt->retrieveRequest();
 
-                    state.generatingClientIndex_ = std::distance(clients_.begin(),clientIt);
-                    states_.push_back(state);
+                    saveState();
+                    states_.back().generatingClientIndex_ = std::distance(clients_.begin(),clientIt);
 
                     numberOfGeneratedRequests_++;
                     currentTime_ = request.getCreationTime();
@@ -143,6 +141,11 @@ void Manager::sendRequestToBuffer(Request & request)
     {
         Request oldestRequest = buffer_.removeOldestRequest();
         rejectRequest(oldestRequest);
+
+        std::size_t i = states_.back().generatingClientIndex_;
+        saveState();
+        states_.back().generatingClientIndex_ = i;
+
     }
     buffer_.addRequest(request);
     std::cout << request << " -> buffer" << " time: " << currentTime_ <<  std::endl;
@@ -228,7 +231,7 @@ void Manager::printComponents() const
 
 void Manager::saveState()
 {
-    SystemState state(clients_, buffer_, servers_, rejectedRequests_);
+    SystemState state(clients_, buffer_, servers_, rejectedRequests_, servicedRequests_);
     states_.push_back(state);
     std::cout << "new size: " << states_.size() << std::endl;
 }
