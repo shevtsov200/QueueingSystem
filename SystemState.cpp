@@ -7,4 +7,5 @@ SystemState::SystemState(std::vector<Client> clients, Buffer buffer, std::vector
     buffer_ = buffer;
     servers_ = servers;
     rejected_ = rejected;
+    generatingClientIndex_ = -1;
 }

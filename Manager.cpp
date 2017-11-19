@@ -73,12 +73,16 @@ void Manager::runSimulation(int requestsNumber, int bufferSize, int clientCount,
             {
                 if(numberOfGeneratedRequests_ < requestsNumber)
                 {
-                    saveState();
+                    //saveState();
+                    SystemState state(clients_, buffer_, servers_, rejectedRequests_);
                     Request request = clientIt->retrieveRequest();
+
+                    state.generatingClientIndex_ = std::distance(clients_.begin(),clientIt);
+                    states_.push_back(state);
+
                     numberOfGeneratedRequests_++;
                     currentTime_ = request.getCreationTime();
                     std::cout << *clientIt << " -> " << request << " time: " << currentTime_ << std::endl;
-
 
                     sendRequestToBuffer(request);
                 }

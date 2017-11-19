@@ -2,6 +2,7 @@
 #include "Request.h"
 #include <cstdlib>
 #include <iostream>
+#include <sstream>
 
 Client::Client()
 {
@@ -29,6 +30,13 @@ void Client::generateRequest(double currentTime)
 double Client::getRequestCreationTime() const
 {
     return request_.getCreationTime();
+}
+
+std::string Client::getClientName() const
+{
+    std::stringstream stream;
+    stream << "client" << getIndex();
+    return stream.str();
 }
 
 std::ostream &operator<<(std::ostream &stream, const Client &client)

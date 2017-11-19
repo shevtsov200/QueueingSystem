@@ -13,6 +13,8 @@ struct SystemState
     std::vector<Server> servers_;
     std::vector<Request> rejected_;
 
+    std::size_t generatingClientIndex_;
+
     SystemState(std::vector<Client> clients, Buffer buffer, std::vector<Server> servers,
                 std::vector<Request> rejected);
 };

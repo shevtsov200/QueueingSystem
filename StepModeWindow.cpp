@@ -15,12 +15,12 @@ void StepModeWindow::startStepMode(int requestsCount, int bufferSize, int client
     states_ = manager.getStates();
     currentStep_ = 0;
 
-    for(std::size_t i = 0; i < states_.back().servers_.size(); ++i)
+    for(std::size_t i = 0; i < states_.back().clients_.size(); ++i)
     {
         QLabel *label = new QLabel();
-        QString name = QString::fromStdString(states_.back().servers_[i].getServerName());
+        QString name = QString::fromStdString(states_.back().clients_[i].getClientName());
         initializeLabel(label,name);
-        ui->verticalLayout->addWidget(label);
+        ui->verticalLayout_3->addWidget(label);
     }
 
     for(std::size_t i = 0; i < states_.back().buffer_.getSize(); ++i)
@@ -31,8 +31,13 @@ void StepModeWindow::startStepMode(int requestsCount, int bufferSize, int client
         ui->verticalLayout_2->addWidget(label);
     }
 
-    ui->clientLabel->setText("empty");
-    //ui->bufferLabel->setText("empty");
+    for(std::size_t i = 0; i < states_.back().servers_.size(); ++i)
+    {
+        QLabel *label = new QLabel();
+        QString name = QString::fromStdString(states_.back().servers_[i].getServerName());
+        initializeLabel(label,name);
+        ui->verticalLayout->addWidget(label);
+    }
 
     std::cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << std::endl;
     int i = 0;
@@ -67,8 +72,7 @@ void StepModeWindow::goToNextStep()
 {
     std::cout << "current step: " << currentStep_ << std::endl;
     SystemState state = states_[currentStep_];
-    ui->clientLabel->setText("empty");
-    //ui->bufferLabel->setText("empty");
+    //ui->clientLabel->setText("empty");
 
     foreach(QLabel *label, ui->verticalLayoutWidget->findChildren<QLabel*>())
     {
@@ -80,11 +84,22 @@ void StepModeWindow::goToNextStep()
         label->setText("empty");
     }
 
-    if(!state.clients_[0].isFree())
+    foreach(QLabel *label, ui->verticalLayoutWidget_3->findChildren<QLabel*>())
     {
-        Request request = state.clients_[0].retrieveRequest();
-        QString clientText = QString::fromStdString(request.getRequestName());
-        ui->clientLabel->setText(clientText);
+        label->setText("empty");
+    }
+
+    for(std::size_t i = 0; i < state.clients_.size(); ++i)
+    {
+        if(i == state.generatingClientIndex_)
+        {
+            Request request = state.clients_[i].retrieveRequest();
+            QString name = QString::fromStdString(state.clients_[i].getClientName());
+            QString clientText = QString::fromStdString(request.getRequestName());
+
+            QLabel * label = ui->verticalLayoutWidget_3->findChild<QLabel*>(name);
+            label->setText(clientText);
+        }
     }
 
     for(std::size_t i = 0; i < state.buffer_.getSize(); ++i)
@@ -98,11 +113,8 @@ void StepModeWindow::goToNextStep()
             QString name = QString::fromStdString("buffer"+i);
             QLabel * label = ui->verticalLayoutWidget_2->findChild<QLabel*>(name);
             label->setText(bufferText);
-            //ui->bufferLabel->setText(QString::fromStdString(request.getRequestName()));
         }
     }
-
-
 
     for(auto it = state.servers_.begin(); it != state.servers_.end(); ++it)
     {
@@ -117,7 +129,6 @@ void StepModeWindow::goToNextStep()
         label->setText(serverText);
         }
     }
-
 
     if(currentStep_ < states_.size()-1)
     {

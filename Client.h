@@ -13,6 +13,7 @@ public:
     void generateRequest(double currentTime);
     double getRequestCreationTime() const;
 
+    std::string getClientName() const;
     friend std::ostream &operator<<(std::ostream &stream, const Client &client);
 private:
     int testInc_;
