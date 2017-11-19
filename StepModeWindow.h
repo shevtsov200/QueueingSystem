@@ -4,6 +4,7 @@
 #include "SystemState.h"
 
 #include <QWidget>
+#include <QLabel>
 #include <vector>
 
 namespace Ui {
@@ -31,6 +32,7 @@ private:
     std::size_t currentStep_;
 
     void goToNextStep();
+    void initializeLabel(QLabel * label, QString name);
 };
 
 #endif // STEPMODEWINDOW_H

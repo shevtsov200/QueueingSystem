@@ -14,16 +14,19 @@ ParametersWindow::ParametersWindow(QWidget *parent) :
 
     ui->requestsSpinBox->setMinimum(1);
     ui->requestsSpinBox->setMaximum(std::numeric_limits<int>::max());
-    ui->requestsSpinBox->setValue(2);
+    ui->requestsSpinBox->setValue(3);
 
     ui->bufferSpinBox->setMinimum(1);
     ui->bufferSpinBox->setMaximum(std::numeric_limits<int>::max());
+    ui->bufferSpinBox->setValue(2);
 
     ui->clientsSpinBox->setMinimum(1);
     ui->clientsSpinBox->setMaximum(std::numeric_limits<int>::max());
+    ui->clientsSpinBox->setValue(1);
 
     ui->serversSpinBox->setMinimum(1);
     ui->serversSpinBox->setMaximum(std::numeric_limits<int>::max());
+    ui->serversSpinBox->setValue(1);
 
     const int precision = 4;
     const double step = 0.05;

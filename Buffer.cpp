@@ -62,3 +62,13 @@ void Buffer::print() const
     }
     std::cout << std::endl;
 }
+
+size_t Buffer::getSize() const
+{
+    return bufferSize_;
+}
+
+Request Buffer::requestAt(std::size_t index)
+{
+    return requests_.at(index);
+}

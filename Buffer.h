@@ -15,8 +15,10 @@ public:
     Request getRequest();
     Request removeOldestRequest();
     void print() const;
+    std::size_t getSize() const;
+    Request requestAt(std::size_t index);
 private:
-    int bufferSize_;
+    std::size_t bufferSize_;
     std::vector<Request> requests_;
 };
 
