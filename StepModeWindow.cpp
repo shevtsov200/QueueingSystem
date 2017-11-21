@@ -6,6 +6,7 @@
 
 #include <vector>
 #include <iostream>
+#include <string>
 
 void StepModeWindow::startStepMode(int requestsCount, int bufferSize, int clientCount, double serverCount, double a, double b, double lambda)
 {
@@ -110,13 +111,13 @@ void StepModeWindow::goToNextStep()
     {
         if(!it->isFree())
         {
-        Request request = it->retrieveRequest();
-        QString serverText = QString::fromStdString(request.getRequestName());
+            Request request = it->retrieveRequest();
+            QString serverText = QString::fromStdString(request.getRequestName());
 
-        QString name = QString::fromStdString(it->getServerName());
-        QLabel * label = ui->verticalLayoutWidget->findChild<QLabel*>(name);
+            QString name = QString::fromStdString(it->getServerName());
+            QLabel * label = ui->verticalLayoutWidget->findChild<QLabel*>(name);
 
-        label->setText(serverText);
+            label->setText(serverText);
         }
     }
 

@@ -26,7 +26,7 @@ ParametersWindow::ParametersWindow(QWidget *parent) :
 
     ui->serversSpinBox->setMinimum(1);
     ui->serversSpinBox->setMaximum(std::numeric_limits<int>::max());
-    ui->serversSpinBox->setValue(1);
+    ui->serversSpinBox->setValue(2);
 
     const int precision = 4;
     const double step = 0.05;

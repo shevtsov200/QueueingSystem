@@ -86,6 +86,7 @@ void Manager::runSimulation(int requestsNumber, int bufferSize, int clientCount,
                 }
             }
         }
+
         if ((clientIt == clients_.end()) || (numberOfGeneratedRequests_ >= requestsNumber))
         {
             std::vector<Server>::iterator serverIt = getEarliestServer();
@@ -192,20 +193,29 @@ std::vector<Client>::iterator Manager::getEarliestClient()
 
 std::vector<Server>::iterator Manager::getEarliestServer()
 {
-    std::vector<Server>::iterator bound = std::partition(servers_.begin(),servers_.end(),
-                                                         [](Server & server)
+    std::vector<Server> serversCopy = servers_;
+    std::vector<Server>::iterator bound = std::stable_partition(serversCopy.begin(),serversCopy.end(),
+                                                                [](Server & server)
     {
             return !server.isFree();
 });
-    std::vector<Server>::iterator minIt = std::min_element(servers_.begin(), bound,
-                                                           []( Server & left,  Server & right)
+
+    std::vector<Server>::iterator minItOfCopy = std::min_element(serversCopy.begin(), bound,
+                                                                 []( Server & left,  Server & right)
     {
             return (left.getServiceFinishTime() < right.getServiceFinishTime());
 });
-    if(minIt == bound)
+
+    if(minItOfCopy == bound)
     {
         return servers_.end();
     }
+
+    std::vector<Server>::iterator minIt =std::find_if(servers_.begin(), servers_.end(),
+                                                      [&](Server & server)
+    {
+            return (server.getIndex() == minItOfCopy->getIndex());
+});
     return minIt;
 }
 
