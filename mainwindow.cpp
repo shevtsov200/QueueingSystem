@@ -36,6 +36,8 @@ MainWindow::MainWindow(QWidget *parent) :
             SLOT(setCurrentIndex(int)));
     connect(tableWindow, SIGNAL(changeStackedWidgetIndex(int)), this,
             SLOT(setCurrentIndex(int)));
+    connect(stepModeWindow, SIGNAL(changeStackedWidgetIndex(int)), this,
+            SLOT(setCurrentIndex(int)));
     connect(parametersWindow, SIGNAL(fillTable(int, int,int, double, double, double, double)), tableWindow,
             SLOT(fillTable(int, int,int, double, double, double, double)));
     connect(parametersWindow, SIGNAL(startStepMode(int, int,int, double, double, double, double)), stepModeWindow,

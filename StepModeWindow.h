@@ -27,6 +27,10 @@ public:
 private slots:
     void on_nextStepButton_clicked();
 
+    void on_backButton_clicked();
+signals:
+    void changeStackedWidgetIndex(int index);
+
 private:
     Ui::StepModeWindow *ui;
     std::vector<SystemState> states_;

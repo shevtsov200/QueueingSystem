@@ -175,3 +175,8 @@ void StepModeWindow::on_nextStepButton_clicked()
 {
     goToNextStep();
 }
+
+void StepModeWindow::on_backButton_clicked()
+{
+    emit changeStackedWidgetIndex(3);
+}
