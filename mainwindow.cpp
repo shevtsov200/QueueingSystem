@@ -21,6 +21,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    this->setWindowTitle("Queueing System");
 
     QWidget * tableWindow = new TableWindow();
     QWidget * parametersWindow = new ParametersWindow();

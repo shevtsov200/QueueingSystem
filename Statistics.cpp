@@ -174,6 +174,7 @@ void Statistics::printServerTable() const
               << '|' << std::endl;
     for(std::vector<Server>::const_iterator it = servers_.cbegin(); it != servers_.cend(); ++it)
     {
+        std::cout << "service " << it->getAllServiceTime() << " execution " << executionTime_;
         double utilizationFactor = it->getAllServiceTime()/executionTime_;
         std::cout << '|' << std::setw(spacingNumber) << it->getIndex()
                   << '|' << std::setw(spacingNumber) << utilizationFactor
